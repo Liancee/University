@@ -30,7 +30,7 @@ BEGIN
 			even_parity => even_p
 		);
 		
-	PROCESS (even_p)
+	PROCESS (even_p, PARITY_IN)
 		BEGIN
 			Y <= PARITY_IN XNOR even_p;
 	END PROCESS;
