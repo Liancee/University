@@ -8,11 +8,7 @@ ENTITY labor_2 IS
 	PORT(
 		A, B : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
 		S, E : IN BIT;
-		Y : OUT BIT;
-		
-		-- OUTS for Testbench
-		SUM_T : OUT STD_LOGIC_VECTOR(4 DOWNTO 0);
-		ODD, EVEN, P_IN : OUT BIT
+		Y : OUT BIT
 	);
 END ENTITY;
 
@@ -71,9 +67,4 @@ BEGIN
 			PARITY_IN => parity_in,
 			Y => Y
 		);
-		
-	SUM_T <= sum;
-	EVEN <= even_parity;
-	ODD <= odd_parity;
-	P_IN <= parity_in;
 END ARCHITECTURE;
