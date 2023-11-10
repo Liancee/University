@@ -1,0 +1,33 @@
+set_location_assignment PIN_AC26 -to B
+set_location_assignment PIN_AC24 -to S
+set_location_assignment PIN_AB23 -to E
+set_location_assignment PIN_G22 -to Y
+set_location_assignment PIN_AB28 -to A[0]
+set_location_assignment PIN_AC28 -to A[1]
+set_location_assignment PIN_AC27 -to A[2]
+set_location_assignment PIN_AD27 -to A[3]
+set_location_assignment PIN_AC26 -to B[0]
+set_location_assignment PIN_AD26 -to B[1]
+set_location_assignment PIN_AB26 -to B[2]
+set_location_assignment PIN_AC25 -to B[3]
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE115F29C7
+set_global_assignment -name TOP_LEVEL_ENTITY labor_2
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:07:21  NOVEMBER 10, 2023"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
+set_global_assignment -name VHDL_FILE ParityChecker.vhd
+set_global_assignment -name VHDL_FILE MUX_2TO1.vhd
+set_global_assignment -name VHDL_FILE labor_2.vhd
+set_global_assignment -name VHDL_FILE EvenParityGenerator.vhd
+set_global_assignment -name VHDL_FILE Adder4BitParity.vhd
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name BDF_FILE Block_diagramm.bdf
