@@ -7,6 +7,11 @@ if [ $# -ne 2 ]; then
     exit 1  # Exit the script if the arguments are not correct
 fi
 
+if [ ! -f $1 ]  ||  [ ! -f $2 ]; then
+    echo "Either $1 or $2 does not exist!"
+    exit 1
+fi    
+
 # Iterate through every line of the file in the first parameter $1 (word.list)
 # IFS => sets internal field seperator to empty string otherwise read cmd could have unexpected behavior
 # -r => backslashes will be read literally
@@ -20,16 +25,13 @@ while IFS= read -r word; do
 
     # Searches for the calculated hash in the passwordlist ($2) and counts the lines where it occurs.
     # Afterwards, saves the count, word, and hash into a file (tmp.txt)
-    echo "$(grep -c "$hash" "$2"), \"$word\", \"$hash\"" >> "tmp.txt"
+    echo "$(grep -c "$hash" "$2"), \"$word\", \"$hash\""
 
-done < "$1"  # Input redirection for the while loop
+done < "$1" | sort -t "," -nrk1,1
 
 # Sorts the lines in tmp.txt based on the occurrence count.
 # -t => separates the line into fields with the delimiter being ','
 # -nrk => comparison is made as numeric value and then reversed so the most occurred one is at the top
 # It should only be sorted by the first field.
-sort -t "," -nrk1,1 "tmp.txt"
-
-rm "tmp.txt"
 
 
