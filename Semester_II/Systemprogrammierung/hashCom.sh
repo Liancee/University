@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 3 ] || [ "$#" -gt 4 ]; then
-    echo "$0 <word.list> <hashes> <sha1 or md5> [<list all results = -1, list only successful results = 0>]"
+    echo "$0 <word.list> <hashes> <sha1 or md5> [<list only successful results = 0, list all results = 1>]"
     exit 1
 fi
 
@@ -14,8 +14,6 @@ if [ ! "$3" != "sha1" ] && [ ! "$3" != "md5" ]; then
 	echo "Specify the hash compare mode as either sha1 or md5 and not $3."
     exit 1
 fi
-
-if [ $4 -eq -1 ]
 
 comMode="$3sum"
 listVal=${4:-0}
