@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ $# -lt 3 ] || [ "$#" -gt 4 ]; then
     echo "$0 <word.list> <hashes> <sha1 or md5> [<list only successful results = 0, list all results = 1>]"
