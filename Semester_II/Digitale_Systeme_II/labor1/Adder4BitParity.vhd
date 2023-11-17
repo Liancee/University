@@ -8,7 +8,7 @@ ENTITY FullAdder IS
 	);
 END ENTITY;
 
-ARCHITECTURE Behavioral OF FullAdder IS
+ARCHITECTURE Dataflow OF FullAdder IS
 BEGIN
 	PROCESS(a, b, cIn)
 		BEGIN
