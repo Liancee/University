@@ -3,21 +3,20 @@ USE IEEE.STD_LOGIC_1164.ALL;
 
 ENTITY dt_dlatch IS
     PORT (
-        D, E, CLK : IN STD_LOGIC;
+        D, E : IN STD_LOGIC;
         Q : OUT STD_LOGIC
     );
 END ENTITY;
 
 ARCHITECTURE Behavioral OF dt_dlatch IS
-    SIGNAL tmp : STD_LOGIC;
+    SIGNAL internal_Q : STD_LOGIC := '0';
 BEGIN
-    PROCESS (D, E, CLK)
+    PROCESS (D, E)
     BEGIN
-        IF (CLK = '1' AND E = '1') THEN
-            tmp <= D;
+        IF (E = '1') THEN
+            internal_Q <= D;
         END IF;
     END PROCESS;
-    
-    Q <= tmp;
+    Q <= internal_Q;
 END ARCHITECTURE;
     

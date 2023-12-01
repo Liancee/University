@@ -9,14 +9,13 @@ ENTITY dt_dflipflop IS
 END ENTITY;
 
 ARCHITECTURE Behavioral OF dt_dflipflop IS
-    SIGNAL tmp : STD_LOGIC;
+    SIGNAL internal_Q : STD_LOGIC := '0';
 BEGIN
     PROCESS (D, CLK)
     BEGIN
-        IF (CLK'event AND CLK = '1') THEN
-            tmp <= D;
+        IF (CLK'EVENT AND CLK = '1') THEN
+            internal_Q <= D;
         END IF;
     END PROCESS;
-    
-    Q <= tmp;
+    Q <= internal_Q;
 END ARCHITECTURE;
