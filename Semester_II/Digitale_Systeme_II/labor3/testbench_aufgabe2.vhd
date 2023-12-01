@@ -19,7 +19,7 @@ BEGIN
     DUT: ENTITY WORK.aufgabe2
         PORT MAP (
             D => D,
-            E => CLK,
+            CLK => CLK,
             Q => Q
         );
         
