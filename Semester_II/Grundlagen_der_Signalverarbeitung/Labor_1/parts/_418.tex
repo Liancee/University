@@ -1,0 +1,149 @@
+Given is the discrete signal:
+\begin{equation*}
+	s[n] = \cos[\Omega_0\cdot(n+P_0)+\theta_0]
+\end{equation*}
+
+\begin{enumerate}
+	\item Calculation of the period duration $N_0$ for the following cases:
+	
+	\begin{nscenter}
+		\begin{tabular}{c|lll}
+			& $\Omega_0$ & $P_0$ & $\theta_0$ \\
+			\hline
+			1 & $\pi/{3}$ & $0$ & $2\pi$ \\
+			2 & $3\pi/4$ & $2$ & $\pi/4$ \\
+			3 & $3/4$ & $1$ & $1/4$ 
+		\end{tabular}
+	\end{nscenter}
+	
+	The normalization rule $\Omega_0$ is used to normalize a fundamental frequency $f_0$ to the sampling frequency $f_s$.
+	\begin{equation*}
+		\Omega_0 = 2\pi\frac{f_0}{f_s}
+	\end{equation*}
+	Following the definition of the circular frequency for continuous signals, the quotient of the frequencies in the normalization rule can also be expressed with the period duration for discrete signals
+	\begin{equation*}
+		\omega_0 = \frac{2\pi}{T} \rightarrow \Omega_0 = \frac{2\pi}{N_0}
+	\end{equation*}
+	converted to $N_0$
+	\begin{equation*}
+		N_0 = \frac{2\pi}{\Omega_0}
+	\end{equation*}
+	Calculations:
+	{
+		\setlength{\abovedisplayskip}{4pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{flalign*}
+			&N_{0_{1}} = \frac{2\pi}{\frac{\pi}{3}} = \frac{2\pi\cdot3}{\pi} = 6 &
+			&N_{0_{2}} = \frac{2\pi}{\frac{3\pi}{4}} = \frac{2\pi\cdot4}{3\pi} = \frac{8}{3} &
+			&N_{0_{3}} = \frac{2\pi}{\frac{3}{4}} =   \frac{2\pi\cdot4}{3} = \frac{8\pi}{3} & 
+		\end{flalign*}
+	}
+	
+	\item Given are the discrete signals:
+	\begin{align*}
+		s_x[n] = \cos[\Omega_x\cdot(n+P_x)+\theta_x] \\
+		s_y[n] = \cos[\Omega_y\cdot(n+P_y)+\theta_y] \\
+	\end{align*}
+	and the parameters	
+	\begin{nscenter}
+		\begin{tabular}{c|lll|lll}
+			& $\Omega_x$ & $P_x$ & $\theta_x$ 
+			& $\Omega_y$ & $P_y$ & $\theta_y$ \\
+			\hline
+			1 & $\pi/{3}$ & $0$ & $2\pi$ 
+			& $8\pi/{3}$ & $0$ & $0$ \\
+			2 & $3\pi/4$ & $2$ & $\pi/4$
+			& $3\pi/4$ & $1$ & $-\pi$ \\
+			3 & $3/4$ & $1$ & $1/4$
+			& $3/4$ & 0 & 1
+		\end{tabular}
+	\end{nscenter}
+	
+	We get the functions:
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{align*}
+			s_{x_1}[n] = \cos\left[\frac{\pi}{3}\cdot\left(n-0\right)+2\pi\right] & \qquad 
+			s_{y_1}[n] = \cos\left[\frac{8\pi}{3}\cdot\left(n-0\right)+0\right] \\
+			%
+			s_{x_2}[n] = \cos\left[\frac{3\pi}{4}\cdot\left(n-2\right)+\frac{\pi}{4}\right] & \qquad 
+			s_{y_2}[n] = \cos\left[\frac{3\pi}{4}\cdot\left(n-1\right)-\pi\right] \\
+			%
+			s_{x_3}[n] = \cos\left[\frac{3}{4}\cdot\left(n-1\right)+\frac{1}{4}\right] & \qquad 
+			s_{y_3}[n] = \cos\left[\frac{3}{4}\cdot\left(n-0\right)+1\right]
+		\end{align*}
+	}
+	\subsubsection{Solution}
+	The aim is to check for which of the given combination(s) it is true that $s_{x_i}[n]$ is identical to $s_{y_i}[n]$.
+	
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		
+		\underline{Signal combination 1:}
+		
+		\begin{minipage}[t]{0.499999\linewidth}
+			\begin{flalign*}
+				s_{x_1}[n] & = \cos\left[\frac{\pi}{3}\cdot\left(n-0\right)+2\pi\right] & \\
+				&=\cos\left[\frac{\pi}{3}n+2\pi\right] & \\
+				&=\cos\left[\frac{\pi}{3}n\right] &
+			\end{flalign*}
+		\end{minipage}
+		\begin{minipage}[t]{0.499999\linewidth}
+			\begin{flalign*}
+				s_{y_1}[n] & = \cos\left[\frac{8\pi}{3}\cdot\left(n-0\right)+0\right] & \\
+				&= \cos\left[\frac{8\pi}{3}n\right] &
+			\end{flalign*}
+		\end{minipage}
+		\vspace{2pt} \\
+		$\Rightarrow$ The signal combination has only the same amplitude, but differs in frequency.
+		
+		\vspace{4pt}
+		\underline{Signal combination 2:}
+		
+		\begin{minipage}[t]{0.499999\linewidth}
+			\begin{flalign*}
+				s_{x_2}[n] &= \cos\left[\frac{3\pi}{4}\cdot\left(n-2\right)+\frac{\pi}{4}\right] & \\
+				&=\cos\left[\frac{3\pi}{4}n - \frac{3\pi}{2} + \frac{\pi}{4}\right] & \\
+				&=\cos\left[\frac{3\pi}{4}n - \frac{5\pi}{4}\right] &
+			\end{flalign*}
+		\end{minipage}
+		\begin{minipage}[t]{0.499999\linewidth}
+			\begin{flalign*}
+				s_{y_2}[n] &= \cos\left[\frac{3\pi}{4}\cdot\left(n-1\right)-\pi\right] & \\
+				&=\cos\left[\frac{3\pi}{4}n - \frac{3\pi}{4} - \pi\right] & \\
+				&=\cos\left[\frac{3\pi}{4}n - \frac{7\pi}{4}\right] &
+			\end{flalign*}
+		\end{minipage}
+		\vspace{2pt} \\
+		$\Rightarrow$ The signal combination has the same frequency and amplitude, but differs by a phase shift of $\SI{90}{\degree}$, $\pi/2$.
+		
+		\vspace{4pt}
+		\underline{Signal combination 3:}
+		
+		\begin{minipage}[t]{0.499999\linewidth}
+			\begin{flalign*}
+				s_{x_3}[n] &= \cos\left[\frac{3}{4}\cdot\left(n-1\right)+\frac{1}{4}\right] & \\
+				&=\cos\left[\frac{3}{4}n - \frac{3}{4} + \frac{1}{4}\right] & \\
+				&=\cos\left[\frac{3}{4}n - \frac{1}{2}\right] &
+			\end{flalign*}
+		\end{minipage}
+		\begin{minipage}[t]{0.5\linewidth}
+			\begin{flalign*}
+				s_{y_3}[n] &= \cos\left[\frac{3}{4}\cdot\left(n-0\right)+1\right] & \\
+				&=\cos\left[\frac{3}{4}n - 0 + 1\right] & \\
+				&=\cos\left[\frac{3}{4}n + 1\right] &
+			\end{flalign*}
+		\end{minipage}
+		\vspace{2pt} \\
+		$\Rightarrow$ The signal combination has the same frequency and amplitude, but has a phase shift of $\SI{0,5}{\radian}$.
+	}	
+\end{enumerate}
+\clearpage

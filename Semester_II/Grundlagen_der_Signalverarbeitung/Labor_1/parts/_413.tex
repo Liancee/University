@@ -1,0 +1,54 @@
+The signals $s_1(t)$ and $s_2(t)$ are given. It is to be checked whether these signals are even or odd.
+\pgfplotsset{
+	axis413/.style={
+		clip=false,
+		axis lines=middle,
+		xmin=-6.5, xmax=6.5,
+		xlabel={$t$},
+		x label style={at={(current axis.right of origin)},	anchor=east, right=1mm},
+		xtick distance={1},
+		ymin=0, ymax=1.3,
+		y=2.5cm,
+		ylabel={$s(t)$},
+		y label style={at={(current axis.above origin)}, anchor=south },
+		yticklabels={$\hat{s}$ = -1, $\hat{s}$ = 1},
+		ytick={-1,1},
+		hide obscured x ticks=false,
+	},
+}
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\begin{groupplot}[			
+			group style={
+				group size=1 by 2,
+				xlabels at=edge bottom,
+				ylabels at=edge left,
+				vertical sep=+48pt, group name=plots,
+			},
+			width=0.8\linewidth,
+		]
+			\pgfplotsset{
+				every axis plot/.append style={line width=1pt, mark=none, samples=10}
+			}
+			
+			\nextgroupplot[axis413, ylabel={$s_1(t)$}]
+			\addplot[color=blue] coordinates {(-6,0) (-3,0) (0,1) (3,0) (6,0)};
+			
+			\nextgroupplot[axis413, ylabel={$s_2(t)$}, ymin=-1.3]
+			\addplot[color=blue] coordinates {(-6,0) (-3,0) (-3,-1) (3,1) (3,0) (6,0)};
+		\end{groupplot}
+	\end{tikzpicture}
+	\caption{\label{413}$s_1(t)$ and $s_2(t)$}
+\end{figure}
+
+$\Rightarrow s_1(t)$ is an even function because it is symmetrical to the y-axis, or also because two x-values can be assigned to each y-value.
+\begin{equation*}
+	f(x) = f(-x)
+\end{equation*}
+
+$\Rightarrow s_2(t)$ is an odd function, as it is point-symmetrical to the origin of the coordinates, or each y-value can be assigned an x-value.
+\begin{equation*}
+	f(x) = -f(-x)
+\end{equation*}
+\clearpage

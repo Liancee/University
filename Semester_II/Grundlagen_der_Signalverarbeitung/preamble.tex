@@ -1,0 +1,183 @@
+\def\docsubject{Laboratory protocol\\Fundamentals of signal processing}
+\def\authors{Franz Linden (101052) \\ Kaan Tali (943588)}
+\def\docauthor{Franz Linden (101052) \\ Kaan Tali (943588) \\ \\ Technische Informatik – Embedded Systems (B.Eng.)}
+\def\docdate{Winter semester 2023/2024\\\execdate}
+\def\docpublishers{Prof.~Dr.~P.~Gregorius}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[export]{adjustbox}
+\usepackage[
+	a4paper,
+	includeheadfoot,
+	top=0mm,
+	tmargin=15mm,
+	right=25mm,
+	bottom=10mm,
+	left=20mm,
+	marginpar=0mm,
+	marginparwidth=0mm,
+	marginparsep=0mm,
+	headheight=15mm,
+	footskip=20mm,
+]{geometry}
+\usepackage{refcount}
+\usepackage{lastpage}
+\usepackage{microtype}
+
+\usepackage[headsepline, footsepline]{scrlayer-scrpage}
+\clearpairofpagestyles
+
+\renewcommand*{\headfont}{\normalfont}
+\ihead[\authors]{\authors}
+\ohead[\doctitle]{\doctitle}
+\ifoot[\docdate]{\docdate}
+\ofoot[\pagemark]{\pagemark}
+\ofoot{Page \thepage\ of \pageref{LastPage}}
+\renewcommand*\chapterpagestyle{scrheadings}% default pagestyle on chapter pages is plain
+
+\ModifyLayer[addvoffset=-.6ex]{scrheadings.foot.above.line}
+\ModifyLayer[addvoffset=-.6ex]{plain.scrheadings.foot.above.line}
+
+% Schriftart
+\usepackage{libertine}
+\usepackage{libertinust1math}
+\usepackage[T1]{fontenc}
+\setlength{\parindent}{0pt}
+\usepackage{accents}
+\usepackage{moresize}
+
+% Mathe, Symbole, Einheitendarstellung, Chemie
+\usepackage{amsmath}
+\usepackage{amsxtra}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\DeclareSIUnit \voltampere { VA } %apparent power 
+\DeclareSIUnit \var { var } %volt-ampere reactive - idle power 
+\sisetup{locale=DE}
+\usepackage{gauss}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\usepackage{cancel}
+
+% Layout
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{multirow,multicol,booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks,
+colorlinks,
+linkcolor={black},
+citecolor={blue!50!black},
+urlcolor={blue!80!black}]{hyperref}
+\urlstyle{rm}
+\usepackage[table]{xcolor}
+\newcommand{\ccgray}{\cellcolor[HTML]{dddddd}}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\usepackage{wrapfig}
+\usepackage{pgfplots}
+\usepgfplotslibrary{polar, fillbetween}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{arrows, shapes.symbols, shapes.geometric, angles,quotes, intersections, backgrounds}
+\usepgfplotslibrary{groupplots}
+\usepackage[european,siunitx]{circuitikz}
+\usepackage{circuitikz}
+\ctikzset{bipoles/thickness=1}
+\tikzset{>=latex} % for LaTeX arrow head
+\usepackage{caption}
+
+\usepackage{listings} % codepackage
+
+% Übergreifende Zählung von figures auch bei chapter wechsel
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+
+\RedeclareSectionCommand[beforeskip=0pt, afterskip=6pt]{chapter}
+\RedeclareSectionCommand[beforeskip=6pt, afterskip=6pt]{section}
+
+
+\usepackage{xparse}
+
+% Redefine \vec environment to be bold+upright instead of arrow
+\let\vec\mathbf
+
+% Matlab format
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{matlab}{
+	backgroundcolor=\color{backcolor},
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	inputencoding=utf8,
+	extendedchars=true,
+	texcl=true,
+	%	basicstyle=\ttfamily\footnotesize,
+	basicstyle=\scriptsize
+}
+\lstset{
+style=matlab,
+literate=%
+	{Ö}{{\"O}}1
+{Ä}{{\"A}}1
+{Ü}{{\"U}}1
+{ß}{{\ss}}1
+{ü}{{\"u}}1
+{ä}{{\"a}}1
+{ö}{{\"o}}1
+}
+
+\newcommand\inlcode[2]{
+	\fontsize{10}{10}\texttt{\color{magenta}#1(\color{codepurple}#2\color{magenta})}
+}
+
+% wrapper around \includegraphics with a colored box
+\newcommand{\addimg}[2][backcolor]{%
+	\setlength{\fboxsep}{0pt}%
+	\colorbox{#1}{\includegraphics[width=\linewidth, keepaspectratio]{#2}}%
+}
+
+% Footnote without number
+\newcommand\nnfootnote[1]{%
+	\begingroup
+	\renewcommand\thefootnote{}\footnote{#1}%
+	\addtocounter{footnote}{-1}%
+	\endgroup
+	%	\vspace{-pt}%
+}
+
+\newcommand{\rme}{\ensuremath{\mathrm{e}}}
+\newcommand{\dunderline}[1]{
+	\underline{\underline{#1}}
+}
+\newcommand{\D}[1]{\ensuremath{
+		\;\mathrm{d}{#1}
+	}}
+
+% Debug
+%\usepackage{showframe}
+%\renewcommand\ShowFrameLinethickness{0.15pt}
+%\renewcommand*\ShowFrameColor{\color{red}}
+%\showboxbreadth=\maxdimen
+%\showboxdepth=\maxdimen
+
+% Remove several warnings
+\usepackage{scrhack} % Overcome differentiating floats from KOMA and other like lstlisting
+\usepackage{silence}
+\WarningFilter{scrreprt}{Usage of package `fancyhdr'} % fancyhdr with KOMA

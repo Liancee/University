@@ -1,0 +1,6 @@
+% Plot speichern
+answer = inputdlg('Dateiname', 'Dateiname', [1 50]);
+set(gcf, 'InvertHardcopy', 'off')
+fig.PaperUnits = 'centimeters';
+fig.PaperPosition = [0 0 16.5 8];
+print(answer{1},'-dpng','-r300');

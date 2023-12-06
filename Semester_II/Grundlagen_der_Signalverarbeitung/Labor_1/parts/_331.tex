@@ -1,0 +1,91 @@
+Given are the following vectors:
+\begin{align*}
+	\vec{x}&=\begin{pmatrix}
+		\frac{1}{16} \\ \frac{2}{7} \\ 3
+	\end{pmatrix} &
+	\vec{y}&=\begin{pmatrix}
+		4 \\ 5 \\ 6
+	\end{pmatrix}
+\end{align*}
+and the scalar:
+\begin{align*}
+	\alpha = \frac{1}{5}
+\end{align*}
+
+Calculations should be performed for:
+\begin{align*}
+	\vec{z}_1&=\alpha\cdot\vec{x} & \vec{z}_2&=\alpha\cdot\vec{x}^T \\
+	\vec{w}_1&=\alpha\cdot\vec{y} & \vec{w}_2&=\alpha\cdot\vec{y}^T
+\end{align*}
+
+\subsubsection{Solution}
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{6pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}
+	\begin{flalign*}
+		&\vec{z}_1 =\alpha\cdot\vec{x} = \frac{1}{5} 
+		\cdot \begin{pmatrix}
+			\frac{1}{16} \\ \frac{2}{7} \\ 3
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{1}{5}\cdot\frac{1}{16} \\ \frac{1}{5}\cdot\frac{2}{7} \\ \frac{1}{5}\cdot3
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{1}{80} \\ \frac{2}{35} \\
+			\frac{3}{5}
+		\end{pmatrix} &
+	\end{flalign*}
+	
+	\begin{flalign*}
+		&\vec{z}_2 =\alpha\cdot\vec{x}^T = \frac{1}{5} 
+		\cdot \begin{pmatrix}
+			\frac{1}{16} & \frac{2}{7} & 3
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{1}{5}\cdot\frac{1}{16} & \frac{1}{5}\cdot\frac{2}{7} & \frac{1}{5}\cdot3
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{1}{80} & \frac{2}{35} & \frac{3}{5}
+		\end{pmatrix} &
+	\end{flalign*}
+	\begin{flalign*}
+		&\vec{w}_1 =\alpha\cdot\vec{y} = \frac{1}{5} 
+		\cdot \begin{pmatrix}
+			4 \\ 5 \\ 6
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{1}{5}\cdot4 \\ \frac{1}{5}\cdot5 \\ \frac{1}{5}\cdot6
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{4}{5} \\ \frac{5}{5} \\ \frac{6}{5}
+		\end{pmatrix}
+		= \begin{pmatrix}
+			\frac{4}{5} \\ 1 \\	\frac{6}{5}
+		\end{pmatrix} &
+	\end{flalign*}
+	\begin{flalign*}
+		&\vec{w}_2 =\alpha\cdot\vec{y}^T = \frac{1}{5} 
+		\cdot \begin{pmatrix}
+			4 & 5 & 6
+		\end{pmatrix} 
+		= \begin{pmatrix}
+			\frac{1}{5}\cdot4 & \frac{1}{5}\cdot5 & \frac{1}{5}\cdot6
+		\end{pmatrix}
+		= \begin{pmatrix}
+			\frac{4}{5} & \frac{5}{5} & \frac{6}{5}
+		\end{pmatrix}
+		= \begin{pmatrix}
+			\frac{4}{5} & 1 & \frac{6}{5}
+		\end{pmatrix} &
+	\end{flalign*}
+}
+
+\subsubsection{Matlab}
+\lstinputlisting[language=Matlab]{./assets/Lab1_331.m}
+
+Output
+\lstinputlisting{./assets/Lab1_331o.txt}
+\vspace{20pt}
+

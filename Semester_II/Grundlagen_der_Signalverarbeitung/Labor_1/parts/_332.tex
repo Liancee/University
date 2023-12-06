@@ -1,0 +1,78 @@
+Given are the following vectors:
+\begin{align*}
+	\vec{x}&=\begin{pmatrix}
+		\frac{1}{16} \\ \frac{2}{7} \\ 3
+	\end{pmatrix} &
+	\vec{y}&=\begin{pmatrix}
+		4 \\ 5 \\ 6
+	\end{pmatrix}
+\end{align*}
+
+Calculations should be performed for:
+\begin{align*}
+	\vec{z}_1&=\vec{x}.\cdot\vec{y} & \vec{z}_2&=\vec{x}^T\cdot\vec{y} & \vec{z}_3&=\vec{x}\cdot\vec{y}^T
+\end{align*}
+
+\subsubsection{Solution}
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{6pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}
+	\begin{flalign*}
+		&\vec{z}_1=\vec{x}.\cdot\vec{y}=\begin{pmatrix}
+			\frac{1}{16} \\ \frac{2}{7} \\ 3
+		\end{pmatrix}\cdot\begin{pmatrix}
+			4 \\ 5 \\ 6
+		\end{pmatrix}=\begin{pmatrix}
+		\frac{1}{16} \cdot 4  \\ \frac{2}{7} \cdot 5 \\ 3 \cdot 6
+		\end{pmatrix}=\begin{pmatrix}
+		\frac{4}{16} \\ \frac{10}{7} \\ 18
+		\end{pmatrix}=\begin{pmatrix}
+		\frac{1}{4} \\ \frac{10}{7} \\ 18
+		\end{pmatrix}&
+	\end{flalign*}
+	
+	\begin{flalign*}
+		& \vec{z}_2=\vec{x}^T\cdot\vec{y} = \begin{pmatrix}
+			\frac{1}{16} & \frac{2}{7} & 3
+		\end{pmatrix}\cdot\begin{pmatrix}
+		4 \\ 5 \\ 6
+		\end{pmatrix}= \begin{pmatrix}
+		\frac{1}{16}\cdot4 + \frac{2}{7}\cdot5 + 3\cdot6
+		\end{pmatrix}=\begin{pmatrix}\num{19,68}\end{pmatrix}& 
+	\end{flalign*}
+	
+	
+	\begin{flalign*}
+		& \vec{z}_3=\vec{x}\cdot\vec{y}^T = \begin{pmatrix}
+			\frac{1}{16} \\ \frac{2}{7} \\ 3
+		\end{pmatrix}\cdot\begin{pmatrix}
+			4 & 5 & 6
+		\end{pmatrix}= 
+		\begin{pmatrix}
+			\frac{1}{16}\cdot4 & \frac{1}{16}\cdot5 & \frac{1}{16}\cdot6 \\
+			\frac{2}{7}\cdot4 & \frac{2}{7}\cdot5 & \frac{2}{7}\cdot6 \\
+			3\cdot4 & 3\cdot5 & 3\cdot6
+		\end{pmatrix}=
+		\begin{pmatrix}
+			\frac{4}{16} & \frac{5}{16} & \frac{6}{16}  \\
+			\frac{8}{7} & \frac{10}{7} & \frac{12}{7}  \\
+			12 & 15 & 18
+		\end{pmatrix}=
+		\begin{pmatrix}
+			\frac{1}{4} & \frac{5}{16} & \frac{3}{8}  \\
+			\frac{8}{7} & \frac{10}{7} & \frac{12}{7}  \\
+			12 & 15 & 18
+		\end{pmatrix}& 
+	\end{flalign*}
+}
+
+\clearpage
+
+\subsubsection{Matlab}
+\lstinputlisting[language=Matlab]{./assets/Lab1_332.m}
+
+Output
+\lstinputlisting{./assets/Lab1_332o.txt}
+\vspace{20pt}

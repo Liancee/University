@@ -1,0 +1,45 @@
+Given are the following vector and matrix:
+\begin{align*}
+	\vec{x}&=\begin{pmatrix}
+		1 \\ 2 \\ 3
+	\end{pmatrix} &
+	\vec{Y}&=\begin{pmatrix}
+		1 & 4 \\
+		2 & 5 \\
+		3 & 6
+	\end{pmatrix}
+\end{align*}
+
+Calculations should be performed for:
+\begin{align*}
+	\vec{Z}=\vec{x}^T\cdot{Y}
+\end{align*}
+
+\subsubsection{Solution}
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{6pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}	
+	\begin{flalign*}
+		\vec{Z}& =\vec{x}^T\cdot{Y} = \vec{x}=\begin{pmatrix}
+			1 & 2 & 3
+		\end{pmatrix}\cdot\begin{pmatrix}
+			1 & 4 \\
+			2 & 5 \\
+			3 & 6
+		\end{pmatrix}=\begin{pmatrix}
+			1\cdot1+2\cdot2+3\cdot3 &
+			1\cdot4+2\cdot5+3\cdot6
+		\end{pmatrix}&\\
+		&=\begin{pmatrix}
+			14 & 32\end{pmatrix}& 
+	\end{flalign*}
+}
+
+\subsubsection{Matlab}
+\lstinputlisting[language=Matlab]{./assets/Lab1_333.m}
+
+Output
+\lstinputlisting{./assets/Lab1_333o.txt}
+\vspace{20pt}

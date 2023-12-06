@@ -1,0 +1,76 @@
+Given are the following integrals: \newline
+{\def\arraystretch{2}%
+\begin{tabularx}{\linewidth}{lXlX}
+	a) &
+	$\begin{aligned}
+		& y(t)=\int_{0}^{a}\rme^{-2t}\mathrm{d}t
+	\end{aligned}$ &
+	b) &
+	$\begin{aligned}
+		& y(t)=\int_{2}^{\infty}\rme^{-3t}\mathrm{d}t
+	\end{aligned}$ \\
+	c) &
+	$\begin{aligned}
+		& y(t)=\int_{0}^{a}\left(1-\rme^{-t}\right)\cdot\sin\left(t\right)\mathrm{d}t
+	\end{aligned}$
+\end{tabularx}
+}
+\subsubsection{Solutions}
+a)
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{12pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}
+	\begin{flalign*}
+		y(t)=\int_{0}^{a}\rme^{-2t}\mathrm{d}t	=&\left.-\frac{1}{2}\;\rme^{-2t}\right|_0^a=-\frac{1}{2}\;\rme^{-2a}-\left(-\frac{1}{2}\;\rme^0\right)=-\frac{1}{2}\;\rme^{-2a}+\frac{1}{2}&
+	\end{flalign*}
+}
+
+b)
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{12pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}
+	\begin{flalign*}
+		y(t)=\int_{2}^{\infty}\rme^{-3t}\mathrm{d}t
+		&= \lim_{x \to \infty}\left(\int_{2}^{x}\rme^{-3t}\mathrm{d}t\right)
+		= \lim_{x \to \infty}\left(\left.\frac{1}{-3}\;{\rme}^{-3x}\right|_2^x\right)
+		= \lim_{x \to \infty}\left(-\frac{1}{3\rme^{3x}}-\left(-\frac{1}{3\rme^{3\cdot2}}\right)\right) \\
+		&= \lim_{x \to \infty}\left(-\frac{1}{3\rme^{3x}}+\frac{1}{3\rme^6}\right)
+		= \lim_{x \to \infty}\left(-\frac{1}{3\rme^{3x}}\right) + \lim_{x \to \infty}\left(\frac{1}{3\rme^6}\right) & \\
+		&=-\lim_{x \to \infty}\left(\frac{1}{3\rme^{3x}}\right) + \frac{1}{3\rme^6}=-0+\frac{1}{3\rme^6}& \\
+		&=\frac{1}{3\rme^6}
+	\end{flalign*}
+}
+
+c)
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{12pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}
+	\begin{flalign*}
+		y(t) &=\int_{0}^{a}\left(1-\rme^{-t}\right)\cdot\sin(t)\D{t}
+		=\int_{0}^{a}\sin(t) \mathrm{d}t - \int_{0}^{a}\rme^{-t}\sin(t)\D{t} &
+	\end{flalign*}
+	
+	The term $\int_{0}^{a}\sin(t)\D{t}$ forms a standard integral, the term $\int_{0}^{a}\rme^{-t}\sin(t)\D{t}$ is subsequently solved by means of partial integration ($\int{\!u\mathrm{d}v}=uv-\int{\!v\mathrm{d}u}$). 
+	
+	\begin{flalign*}
+		\int_{0}^{a}\rme^{-t}\sin(t)\mathrm{d}t &= -\rme^{-t}\cdot\sin(t) - \int -e^{-t}\cdot\cos(t)\D{t} & \\
+		& = -\rme^{-t}\cdot\sin(t) - \left(\rme^{-t}\cdot\cos(t)-\int_{0}^{a}-\rme^{-t}\cdot\sin(t)\D{t}\right) & \left| + \int_{0}^{a}-\rme^{-t}\cdot\sin(t)\D{t}\right.\;|\; :2 \\
+		& = \frac{-\rme^{-t}\cdot\sin(t) - \rme^{-t}\cdot\cos(t)}{2}
+	\end{flalign*}
+	Insert into initial integral
+	
+	\begin{flalign*}
+		y(t) &=\int_{0}^{a}\left(1-\rme^{-t}\right)\cdot\sin(t)\D{t}
+		=\int_{0}^{a}\sin(t) \mathrm{d}t - \int_{0}^{a}\rme^{-t}\sin(t)\D{t} & \\
+		& = \left[-\cos(t) - \frac{-\rme^{-t}\cdot\sin(t) - \rme^{-t}\cdot\cos(t)}{2}\right]_0^a & \\
+		& = \left[-\cos(t) + \frac{\rme^{-t}\left(\sin(t)+\cos(t)\right)}{2}\right]_0^a & \\
+		& =  \left(-\cos(a) + \frac{\rme^{-a}\left(\sin(a)+\cos(a)\right)}{2}\right) - \left(-\cos(0) + \frac{\rme^{0}\left(\sin(0)+\cos(0)\right)}{2}\right) & \\
+		& = \left(-\cos(a) + \frac{\rme^{-a}\left(\sin(a)+\cos(a)\right)}{2}\right) + \frac{1}{2} &
+	\end{flalign*}
+}
