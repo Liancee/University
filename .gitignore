@@ -78,8 +78,15 @@ Semester_I/Mathe_I/New OpenDocument Drawing.odg
 Semester_II/Digitale_Systeme_II/Labor_grundlagen/DE2_115_User_manual_2013.pdf
 Semester_II/Digitale_Systeme_II/Labor_grundlagen/ModelSim_GUI_Introduction.pdf
 Semester_II/Digitale_Systeme_II/Labor_grundlagen/Quartus_II_Introduction.pdf
-Semester_II/Digitale_Systeme_II/Vorlesungen
 Semester_II/Digitale_Systeme_II/Labor_grundlagen/quartus-schematic.pdf
 *.log
 *.aux
 *.toc
+Semester_II/Digitale_Systeme_II/Vorlesungen&Labore
+*.bak
+Semester_II/Digitale_Systeme_II/labor3/db
+Semester_II/Digitale_Systeme_II/labor3/incremental_db
+Semester_II/Digitale_Systeme_II/labor3/output_files
+Semester_II/Digitale_Systeme_II/labor2/block_diagramm/db
+Semester_II/Digitale_Systeme_II/labor2/block_diagramm/incremental_db
+Semester_II/Digitale_Systeme_II/labor2/block_diagramm/output_files
