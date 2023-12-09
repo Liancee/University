@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -Wfatal-errors
 
 birne: CFLAGS += -DBirne_X
 bsd: CFLAGS += -DLocked_BSE
 doors: CFLAGS += -DDoors_10
-#banana: CFLAGS += -DBanana_Mac
+banana: CFLAGS += -DBanana_Mac
 
 birne bsd doors banana: sum.c
 	$(CC) $(CFLAGS) $< -o sum_$@
