@@ -1,35 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef BIRNE_X
+#ifdef Birne_X
   #define INTEGER_TYPE long
-#elif LOCKED_BSE
+#elif Locked_BSE
   #define INTEGER_TYPE int
-#elif DOORS_10
+#elif Doors_10
   #define INTEGER_TYPE short
-#else
+#elif Banana_Mac
   #error "Unsupported operating system: Banana Mac"
+#else
+  #error "Unknown unsupported operating system"
 #endif
 
-void usage(char *);
+#ifndef Banana_Mac // only that when the compile #error triggers we do not get to see all the resulting syntax errors
+  void usage(char *);
 
-int main(int args, char *argv[])
-{
-  if (args != 4) usage(argv[0]);
+  int main(int args, char *argv[])
+  {
+    if (args != 4) usage(argv[0]);
 
-  INTEGER_TYPE num1 = atoi(argv[1]);
-  INTEGER_TYPE num2 = atoi(argv[2]);
-  INTEGER_TYPE num3 = atoi(argv[3]);
+    // in theory here would be checked if the parameter is valid for its supposed OS, but since it is no requirement for this exercise it is not done.
 
-  INTEGER_TYPE sum = num1 + num2 + num3;
+    INTEGER_TYPE num1 = atoi(argv[1]);
+    INTEGER_TYPE num2 = atoi(argv[2]);
+    INTEGER_TYPE num3 = atoi(argv[3]);
 
-  printf("Sum: %ld\n", (long)sum);
+    INTEGER_TYPE sum = num1 + num2 + num3;
 
-  return 0;
-}
+    printf("Sum: %ld\n", (long)sum);
 
-void usage(char * s)
-{
-  fprintf(stderr, "Usage: %s <num1> <num2> <num3>\n", s);
-  exit(EXIT_FAILURE);
-}
+    return EXIT_SUCCESS;
+  }
+
+  void usage(char * s)
+  {
+    fprintf(stderr, "Usage: %s <num1> <num2> <num3>\n", s);
+    exit(EXIT_FAILURE);
+  }
+#endif

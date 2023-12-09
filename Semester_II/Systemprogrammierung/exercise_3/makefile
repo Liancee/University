@@ -1,11 +1,12 @@
 CC = gcc
 CFLAGS = -Wall
 
-birne: CFLAGS += -DBIRNE_X
-bsd: CFLAGS += -DLOCKED_BSE
-doors: CFLAGS += -DDOORS_10
+birne: CFLAGS += -DBirne_X
+bsd: CFLAGS += -DLocked_BSE
+doors: CFLAGS += -DDoors_10
+#banana: CFLAGS += -DBanana_Mac
 
-birne bsd doors: sum.c
+birne bsd doors banana: sum.c
 	$(CC) $(CFLAGS) $< -o sum_$@
 
 clean:
