@@ -1,10 +1,10 @@
-\def\docsubject{Laboratory protocol\\Fundamentals of signal processing}
+\def\docsubject{Laborprotokoll\\Grundlagen der Signalverarbeitung}
 \def\authors{Franz Linden (101052) \\ Kaan Tali (943588)}
 \def\docauthor{Franz Linden (101052) \\ Kaan Tali (943588) \\ \\ Technische Informatik – Embedded Systems (B.Eng.)}
-\def\docdate{Winter semester 2023/2024\\\execdate}
+\def\docdate{Wintersemester 2023/2024\\\execdate}
 \def\docpublishers{Prof.~Dr.~P.~Gregorius}
 
-\usepackage[english]{babel}
+\usepackage{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[export]{adjustbox}
 \usepackage[
@@ -59,6 +59,7 @@
 \usepackage{mathtools}
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \usepackage{cancel}
+\usepackage{empheq}
 
 % Layout
 \usepackage{enumitem}
@@ -93,6 +94,7 @@ urlcolor={blue!80!black}]{hyperref}
 % Übergreifende Zählung von figures auch bei chapter wechsel
 \usepackage{chngcntr}
 \counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
 
 \RedeclareSectionCommand[beforeskip=0pt, afterskip=6pt]{chapter}
 \RedeclareSectionCommand[beforeskip=6pt, afterskip=6pt]{section}
@@ -132,15 +134,15 @@ urlcolor={blue!80!black}]{hyperref}
 	basicstyle=\scriptsize
 }
 \lstset{
-style=matlab,
-literate=%
+	style=matlab,
+	literate=%
 	{Ö}{{\"O}}1
-{Ä}{{\"A}}1
-{Ü}{{\"U}}1
-{ß}{{\ss}}1
-{ü}{{\"u}}1
-{ä}{{\"a}}1
-{ö}{{\"o}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
 }
 
 \newcommand\inlcode[2]{
@@ -181,3 +183,5 @@ literate=%
 \usepackage{scrhack} % Overcome differentiating floats from KOMA and other like lstlisting
 \usepackage{silence}
 \WarningFilter{scrreprt}{Usage of package `fancyhdr'} % fancyhdr with KOMA
+
+\renewcommand{\arraystretch}{1.5} % the lines in between lines in the table were not displayed at 100%

@@ -1,0 +1,91 @@
+Gegeben ist folgendes System:
+\begin{figure}[H]
+	\centering
+	\begin{circuitikz}[line width=1pt, line cap=rect]
+		\draw (0,2) node[left] {$x[n]$} to[short, o-*, i=\phantom{ }]  ++(1,0);
+		\draw 
+		(1,2) to[short, i=\phantom{ }]  ++(0,1) to[short, i=\phantom{ }] ++(1,0)
+		to[twoport,t={|$\;$|}] ++(1,0) 
+		to[short, i=\phantom{ }] ++(3,0)
+		to[short, i=\phantom{ }] ++(0, -1);
+		
+		\draw 
+		(1,2) to[short, i=\phantom{ }] ++(0,-1) 
+		to[short, i=\phantom{ }] ++(1,0) 
+		to[twoport,t={($\;$)$^2$}] ++(1,0)
+		to[short, i=\phantom{ }] ++(1.5,0) node[mixer, scale=0.5, fill=white]{} node[below=6pt]{$\alpha =-1$}
+		to[short, i=\phantom{ }] ++(1.5,0) 
+		to[short, i=\phantom{ }] ++(0, 1);
+		
+		\draw
+		(6,2) node[adder, line width=0.5pt, scale=0.5, fill=white]{} to[short, i=\phantom{ }] ++(1,0)
+		to[twoport,t={($\;$)$^2$}] ++(1,0)
+		to[short, i=\phantom{ }, -o] ++(0.75,0) node[right] {$y[n]$};        
+	\end{circuitikz}
+	\caption{\label{fig:51-1}Diskretes System Aufgabe 5.1}
+\end{figure}
+\vspace{-16pt}
+
+
+\begin{enumerate}[label=\alph*)]
+	\lstset{language=matlab}
+	\item Zu berechnen ist die Impulsfolge $y[n]$ für die Impulsfolge: \\[1.5ex]
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{flalign*}
+			x[n] = & \num{0,25} \cdot \delta[n] + \num{0,5}\cdot \delta[n-1]+\num{0,75} \cdot\delta[n-2]-\num{0,25} \cdot\delta[n-3] \\
+			&\num{-0,5}\cdot\delta[n-4]-\num{0,75}\cdot\delta[n-5] \quad \mathrm{mit} \quad x[n]=0, n>6.
+		\end{flalign*}
+	}
+	Formal beschrieben sieht die Summe unserer gewichteten Folge von Dirac-Impulsen wie folgt aus:
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{flalign*}
+			f[n] = & a_0 \cdot \delta[n] + a_1 \cdot \delta[n-1] + a_2 \cdot \delta[n-2] - a_3 \cdot \delta[n-3] \\
+			&a_4 \cdot \delta[n-4] - a_5 \cdot \delta[n-5]
+		\end{flalign*}
+	}
+	\begin{table}[H]
+		\centering
+		\caption{Schrittweise Berechnung von $y[n]$}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			\ccgray $a_n$											& 0,25 & 0,5 & 0,75 & -0,25 & -0,5 & -0,75 \\
+			\hline
+			\ccgray $\abs{x[n]}$ 									& 0,25 & 0,5 & 0,75 & 0,25 & 0,5 & 0,75 \\
+			\hline
+			\ccgray $x[n]^2$ 										&  0,0625 &  0,25  &  0,5625 &  0,0625 &    0,25 &  0,5625 \\
+			\hline
+			\ccgray $\alpha\cdot{x[n]^2}$							& -0,0625 & -0,25  & -0,5625 & -0,0625 &   -0,25 & -0,5625 \\
+			\hline
+			\ccgray $\abs{x[n]} + \alpha \cdot{x[n]^2}$				&  0,1875 &  0,25  &  0,1875 &  0,1875 &    0,25 &  0,1875 \\
+			\hline
+			\ccgray $\left(\abs{x[n]} + \alpha \cdot{x[n]^2}\right)^2 = y[n]$	&  0,035  &  0,0625 &  0,035  &  0,035 &  0,0625 &  0,035 \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{empheq}[box=\fbox]{flalign*}
+			y[n] = & \num{0,035} \cdot \delta[n] + \num{0,063} \cdot \delta[n-1] + \num{0,035} \cdot \delta[n-2] + \num{0,035} \cdot \delta[n-3] \\
+			&+\num{0,063} \cdot \delta[n-4] + \num{0,035} \cdot \delta[n-5]
+		\end{empheq}
+	}
+	
+	\clearpage
+	\item Überprüfung in Matlab\\
+	\vspace{-28pt}
+	\addimg{./assets/Lab2_51.png}
+	\vspace{-12pt}
+	\lstinputlisting{./assets/Lab2_51.m}
+\end{enumerate}

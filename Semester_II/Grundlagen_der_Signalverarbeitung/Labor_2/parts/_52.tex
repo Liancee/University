@@ -1,0 +1,157 @@
+Gegeben ist folgendes System:
+\begin{figure}[H]
+	\centering
+	\begin{circuitikz}[line width=1pt, line cap=rect]
+		\draw (1, 2) 
+		to[short, -*, i=\phantom{ }] ++(0,-1) 
+		to[twoport, t={$z^{-1}$}, fill=white] ++(2,0)
+		to[short, i=\phantom{ }] ++(0.0001,0)
+		to[short] ++(1,0) node[mixer, scale=0.5, fill=white]{} node[above=6pt]{$(-1)$}
+		to[short, i=\phantom{ }] ++(1,0) 
+		to[short, i=\phantom{ }] ++(0,1);
+		
+		\draw (1,1) 
+		to[short, -*, i=\phantom{ }] ++(0,-1.3) 
+		to[twoport, t={$z^{-1}$}, fill=white] ++(2,0) 
+		to[short, i=\phantom{ }] ++(1,0) ++(-1,0)
+		to[twoport, t={$z^{-1}$}, fill=white] ++(3,0) ++(-2,0)
+		to[short, i=\phantom{ }] ++(4,0) ++(-2,0)
+		to[short] ++(1,0) node[mixer, scale=0.5, fill=white]{} node[above=6pt]{$(-1)$}
+		to[short, i=\phantom{ }] ++(2,0) 
+		to[short, i=\phantom{ }] (9,2);
+		
+		\draw 
+		(0,2) node[left] {$x[n]$} to[short, o-*, i=\phantom{ }]  ++(1,0)
+		to[short] ++(1,0) node[mixer, scale=0.5, fill=white]{} node[above=6pt]{$\alpha$}
+		to[short, i=\phantom{ }] ++(3,0) node[adder, line width=0.5pt, scale=0.5, fill=white]{}
+		to[short, i=\phantom{ }] ++(2,0) node[mixer, scale=0.5, fill=white]{} node[above=6pt]{$\beta$}
+		to[short, i=\phantom{ }] ++(2,0) node[adder, line width=0.5pt, scale=0.5, fill=white]{}
+		to[short, i=\phantom{ }, -o] ++(2,0) node[right] {$y[n]$};
+	\end{circuitikz}
+	\caption{\label{fig:52-1}Diskretes System Aufgabe 5.2}
+\end{figure}
+Und folgende Impulsfolgen:\\
+{
+	\setlength{\abovedisplayskip}{0pt}
+	\setlength{\belowdisplayskip}{6pt}
+	\setlength{\abovedisplayshortskip}{0pt}
+	\setlength{\belowdisplayshortskip}{0pt}
+	\begin{flalign*}
+		x_a[n] = & \num{0,5} \cdot \delta[n] - \num{0,5}\cdot \delta[n-1] + \num{0,5} \cdot\delta[n-2], \textrm{für} \quad \alpha=2, \beta=3\quad\textrm{und}\\
+		x_b[n] = & \sqrt{2} \cdot \delta[n] + \sqrt{2}\cdot \delta[n-1], \textrm{für}\quad\alpha=\sqrt{2}, \beta=2
+	\end{flalign*}
+}
+\begin{enumerate}[label=\alph*)]
+	\lstset{language=matlab}
+	\item Zu Bestimmen ist die Impulsfolge $y_a[n]$ und $y_b[n]$ im Originalbereich (Zeitbereich): \\[1.5ex]
+	Die Multiplikation mit $z^{-1}$ im $z$-Bereich entspricht der Verschiebung der Folge um eine Zeiteinheit im Originalbereich: $z^{-1} =\delta[n-1]$
+	\vspace{-8pt}
+	\begin{table}[H]
+		\centering
+		\caption{Schrittweise Berechnung von $y_a[n]$}
+		\begin{tabular}{|c|c|}
+			\hline
+			\ccgray $\mathrm{I} =x_a[n] \cdot \alpha$					& $ 1 \cdot \delta[n] - 1 \cdot \delta[n-1] + 1 \cdot \delta[n-2]$ \\
+			\hline
+			\ccgray $\mathrm{II} =x_a[n] \cdot \delta[n-1] \cdot{(-1)}$	& $-0,5 \cdot \delta[n-1] + 0,5 \cdot \delta[n-2] - 0,5 \cdot \delta[n-3]$ \\
+			\hline
+			\ccgray $\textrm{III =I + II}$								& $1 \cdot \delta[n] - 1,5 \cdot \delta[n-1] + 1,5 \cdot \delta[n-2] - 0,5 \cdot \delta[n-3]$ \\
+			\hline
+			\ccgray $\mathrm{III} \;\cdot\! =\beta$							& $3 \cdot \delta[n] - 4,5 \cdot \delta[n-1] + 4,5 \cdot \delta[n-2] - 1,5 \cdot \delta[n-3]$ \\
+			\hline
+			\ccgray $\mathrm{IV} =x_a[n] \cdot \delta[n-2] \cdot{(-1)}$	& $- 0,5 \cdot \delta[n-2] + 0,5 \cdot \delta[n-3] - 0,5 \cdot \delta[n-4]$ \\
+			\hline
+			\ccgray $\textrm{III + IV} =y_a[n]$							&  $3 \cdot \delta[n] - 4,5 \cdot \delta[n-1] + 4 \cdot \delta[n-2] -1 \cdot \delta[n-3] - 0,5 \cdot \delta[n-4]$ \\
+			\hline
+		\end{tabular}
+	\end{table}
+	\vspace{-8pt}
+	\begin{table}[H]
+		\centering
+		\caption{Schrittweise Berechnung von $y_b[n]$}
+		\begin{tabular}{|c|c|}
+			\hline
+			\ccgray $\mathrm{I} =x_b[n] \cdot \alpha$					& $2 \cdot \delta[n] + 2 \cdot \delta[n-1]$ \\
+			\hline
+			\ccgray $\mathrm{II} =x_b[n] \cdot \delta[n-1] \cdot{(-1)}$	& $-\sqrt{2} \cdot \delta[n-1] - \sqrt{2} \cdot \delta[n-2]$ \\
+			\hline
+			\ccgray $\textrm{III =I + II}$								& $2 \cdot \delta[n] + \left(2-\sqrt{2}\right)\cdot \delta[n-1] - \sqrt{2} \cdot \delta[n-2]$ \\
+			\hline
+			\ccgray $\mathrm{III} \;\cdot\! =\beta$							& $4 \cdot \delta[n] + \left(4-2\sqrt{2}\right) \cdot \delta[n-1] - 2\sqrt{2} \cdot \delta[n-2]$ \\
+			\hline
+			\ccgray $\mathrm{IV} =x_b[n] \cdot \delta[n-2] \cdot{(-1)}$	& $- \sqrt{2} \cdot \delta[n-2] - \sqrt{2} \cdot \delta[n-3]$ \\
+			\hline
+			\ccgray $\textrm{III + IV} =y_b[n]$							& $4 \cdot \delta[n] + \left(4-2\sqrt{2}\right) \cdot \delta[n-1] -3\sqrt{2} \cdot \delta[n-2] - \sqrt{2} \cdot \delta[n-3]$ \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\item Überprüfung des Ergebnisses mittels der $z$-Transformation:\\[1.5ex]
+	Für die $z$-Transformierte der Eingangsfolge $x[n]$ erhalten wir:\\
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{flalign*}
+			x[n] =\sum_{k=0}^{N}{x[k] \cdot \delta_0[n-k]} \Leftrightarrow X(z) =\sum_{k=0}^{M}{x[k] \cdot z^{-k}}
+		\end{flalign*}
+	}
+	Somit haben die Eingangsfolgen $x_a[n] =[0.5, -0.5, 0.5]$ und $x_b[n] =[\sqrt{2}, \sqrt{2}]$ die $z$-Transformierten:\\
+	{
+		\setlength{\abovedisplayskip}{0pt}
+		\setlength{\belowdisplayskip}{6pt}
+		\setlength{\abovedisplayshortskip}{0pt}
+		\setlength{\belowdisplayshortskip}{0pt}
+		\begin{flalign*}
+			X_a(z) = & 0,5 \cdot{\cancel{z^{0}}} - 0,5 \cdot{z^{-1}} + 0,5 \cdot z^{-2}\quad\textrm{und}\\
+			X_b(z) = & \sqrt{2} \cdot{\cancel{z^{0}}} + \sqrt{2} \cdot{z^{-1}}
+		\end{flalign*}
+	}
+	\begin{table}[H]
+		\centering
+		\caption{Schrittweise Berechnung von $Y_a(z)$}
+		\begin{tabular}{|c|c|}
+			\hline
+			\ccgray $\mathrm{I} =x_a \cdot \alpha$				& $1 - 1 \cdot{z^{-1}} + 1 \cdot{z^{-2}}$ \\
+			\hline
+			\ccgray $\mathrm{II} =x_a \cdot{z^{-1}} \cdot{(-1)}$	& $-0,5 \cdot{z^{-1}} + 0,5 \cdot{z^{-2}} - 0,5 \cdot{z^{-3}}$ \\
+			\hline
+			\ccgray $\textrm{III =I + II}$						& $1 - 1,5 \cdot{z^{-1}} + 1,5 \cdot{z^{-2}} - 0,5 \cdot{z^{-3}}$ \\
+			\hline
+			\ccgray $\mathrm{III} \;\cdot\! =\beta$					& $3 - 4,5 \cdot{z^{-1}} + 4,5 \cdot{z^{-2}} - 1,5 \cdot{z^{-3}}$ \\
+			\hline
+			\ccgray $\mathrm{IV} =x_a \cdot{z^{-2}} \cdot{(-1)}$	& $-0,5 \cdot{z^{-2}} + 0,5 \cdot{z^{-3}} - 0,5 \cdot{z^{-4}}$ \\
+			\hline
+			\ccgray $\textrm{III + IV} =Y_a(z)$					& $3 - 4,5 \cdot{z^{-1}} + 4 \cdot{z^{-2}} - 1 \cdot{z^{-3}} - 0,5 \cdot{z^{-4}}$ \\
+			\hline
+		\end{tabular}
+	\end{table}
+	\begin{table}[H]
+		\centering
+		\caption{Schrittweise Berechnung von $Y_b(z)$}
+		\begin{tabular}{|c|c|}
+			\hline
+			\ccgray $\mathrm{I} =x_b \cdot \alpha$				& $2 \cdot{z^0} + 2 \cdot{z^{-1}}$ \\
+			\hline
+			\ccgray $\mathrm{II} =x_b \cdot{z^{-1}} \cdot{(-1)}$	& $- \sqrt{2} \cdot{z^{-1}} - \sqrt{2}\cdot{z^{-2}}$ \\
+			\hline
+			\ccgray $\textrm{III =I + II}$						& $2 + \left(2-\sqrt{2}\right) \cdot{z^{-1}} - \sqrt{2}\cdot{z^{-2}}$ \\
+			\hline
+			\ccgray $\mathrm{III} \;\cdot\! =\beta$					& $4 + \left(4-2\sqrt{2}\right) \cdot{z^{-1}} - 2\sqrt{2}\cdot{z^{-2}}$ \\
+			\hline
+			\ccgray $\mathrm{IV} =x_b \cdot{z^{-2}} \cdot{(-1)}$	& $- \sqrt{2} \cdot{z^{-2}} - \sqrt{2} \cdot{z^{-3}}$ \\
+			\hline
+			\ccgray $\textrm{III + IV} =Y_b(z)$					& $4 + \left(4-2\sqrt{2}\right) \cdot{z^{-1}} - 3\sqrt{2} \cdot{z^{-2}} - \sqrt{2} \cdot{z^{-3}}$ \\
+			\hline
+		\end{tabular}
+	\end{table}
+	\clearpage
+	\item Überprüfung in Matlab \\
+	\lstset{language=matlab}
+	\addimg{./assets/Lab2_52a.png} \\
+	\addimg{./assets/Lab2_52b.png}
+	\vspace{-20pt}
+	\lstinputlisting[language=matlab]{./assets/Lab2_52.m}
+	\end{enumerate}
+	\clearpage
