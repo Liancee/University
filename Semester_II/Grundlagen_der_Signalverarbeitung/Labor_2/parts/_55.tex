@@ -1,0 +1,21 @@
+Gegeben ist die Tondatei \textbf{ring.wav}.
+
+\begin{enumerate}[label=\alph*)]
+	\lstset{language=matlab}
+	\item Einlesen der Tondatei und anschließendes Darstellen des Amplitudenvektors als Signal. \\
+	Zum Einlesen der Audio Datei wurde die Funktion \inlcode{audioread}{filename, samples} benutzt. Die Parameter für den Matlab-Befehl sind der Pfad zur Datei und die Abtastfrequenz. Als Ergebnis gibt der Matlab-Befehl die abgetasteten Werte und die zugehörige Abtastfrequenz $f_s$ zurück. \vspace{4pt}\\
+	\addimg{./assets/Lab2_55a.png}
+	
+	\item Bestimmung der Abtastfrequenz. \\
+	Wie in der vorherigen Aufgabe bereits angesprochen, gibt der Matlab-Befehl \inlcode{audioread}{filename, samples} die Abtastfrequenz $f_s$ als Ergebnis zurück. Für die gegebene Tondatei beträgt die Abtastfrequenz
+	\begin{equation*}
+		f_s = \SI{11025}{\Hz}
+	\end{equation*}
+	
+	\item Umwandlung des Signals mit höherer Abtastfrequenz \\
+	Das Signal soll nun mit der Abtastfrequenz $f_{s,neu} = 2 \cdot{f_s}$ interpoliert werden. Umgesetzt wurde dies mit dem Matlab-Befehl \inlcode{resample}{y, 2, 1}. Dabei ist y der bereits bekannte Amplitudenvektor, 2 der Faktor für  die neue Abtastfrequenz und das letzte Parameter muss 1 sein, da wir die Abtastfrequenz verdoppeln (upsamplen, siehe \ref{resample}). \vspace{4pt}\\
+	\addimg{./assets/Lab2_55b.png}
+\end{enumerate}
+
+\textbf{Matlab Code:}
+\lstinputlisting[language=Matlab]{./assets/Lab2_55.m}

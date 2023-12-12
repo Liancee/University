@@ -1,9 +1,113 @@
 \begin{enumerate}[label=\alph*)]
-	\item Darstellung eines diskreten Impulskamms mit $n=10$ $\delta$-Impulsen in dem Intervall $L=10$ \\
+	\item Darstellung eines diskreten Impulskamms mit $n=10$ $\delta$-Impulsen in dem Intervall $L=10$ \vspace{4pt}\\
 	\addimg{./assets/Lab2_53a.png}
 	
-	\item Darstellung einer diskreten Sinus-Schwingung $s(t_n) = \sin(\num{1,25} \cdot{t_n})$ als gewichtete Impulsfolge in dem zuvor definierten Intervall $L$. \\
+	\item Darstellung einer diskreten Sinus-Schwingung $s(t_n) = \sin(\num{1,25} \cdot{t_n})$ als gewichtete Impulsfolge in dem zuvor definierten Intervall $L$. \vspace{4pt}\\
 	\addimg{./assets/Lab2_53b.png}
 	
 	\item Die Anzahl der gewichteten Impulsen pro Intervall $L$ soll erhöht werden, dazu können mit dem Matlab-Befehl \inlcode{interp1}{} Zwischenwerte interpoliert\footnote{Zu gegebenen diskreten Daten (z. B. Messwerten) soll eine stetige Funktion (die sogenannte Interpolante oder Interpolierende) gefunden werden, die diese Daten abbildet.} werden. Unter der Benutzung der Optionen $original$, $nearest$, $linear$, $pchip$, $spline$ für \inlcode{interp1}{}, soll diese mit dem Matlab-Befehl \inlcode{resample}{} verglichen werden. \\
+	
+	\underline{nearest:} \vspace{-12pt}\\
+	\begin{itemize}
+		\item Weist jedem Zielpunkt den Wert des nächstgelegenen Datenpunkts zu.
+		\item Einfach und gut geeignet, wenn eine diskrete Zuordnung erforderlich ist. \\
+	\end{itemize}
+	
+	\underline{linear:} \vspace{-12pt}\\
+	\begin{itemize}
+		\item Verwendet eine lineare Interpolation zwischen benachbarten Datenpunkten.
+		\item Einfach und schnell, aber möglicherweise nicht glatt an den Übergangsstellen. \\
+	\end{itemize}
+	
+	\underline{pchip:} \vspace{-12pt}\\
+	\begin{itemize}
+		\item Verwendet ein Piecewise Cubic Hermite Interpolating Polynomial (stückweise kubisches Hermite-Interpolationspolynom).
+		\item Glatter als lineare Interpolation und behält die Monotonie der Daten bei. \\
+	\end{itemize}
+	
+	\underline{spline:} \vspace{-12pt}\\
+	\begin{itemize}
+		\item Verwendet ein kubisches Spline-Interpolationspolynom.
+		\item Bietet eine glatte Interpolation, jedoch können sich in den Bereichen mit starken Änderungen der Datenpunkte Oszillationen\footnote{Die Oszillationen kann sich in \glq{Kantigkeit}\grq oder \glq{Schwingungen}\grq zeigen und können als zusätzliche \glq{Spitzen}\grq oder \glq{Einbuchtungen}\grq in der interpolierten Kurve erscheinen, die nicht durch die ursprünglichen Datenpunkte gerechtfertigt sind. Dies geschieht, weil das kubische Spline-Interpolationspolynom versucht, eine möglichst glatte Verbindung zwischen den Datenpunkten herzustellen, was zu solchen zusätzlichen Strukturen führen kann.} ergeben. \\
+	\end{itemize}
+	
+	\underline{\inlcode{resample}{p, q}:}\label{resample} \vspace{4pt}\\
+	Der \inlcode{resample}{p, q} Befehl tastet eine Sequenz basierend auf der originalen Abtastrate erneut ab. Dazu werden die \textit{sampling}-Faktoren \textit{p} (als Zähler) und \textit{q} (als Nenner) verwendet und bilden den Sample-Quotient $S_q$. 
+	\begin{itemize}
+		\item Für $p > q$, wird das Signal \glq{\textit{geupsampled}}\grq, also die Anzahl der Abtastungen erhöht, $\Rightarrow S_q > 1$
+		\item Für $p < q$, wird das Signal \glq{\textit{gedownsampled}}\grq, also die Anzahl der Abtastungen verringert, $\Rightarrow 1 > S_q > 0$ 
+		\item Für $p = q$, keine Veränderung, $\Rightarrow S_q = 1$
+	\end{itemize}
+	\clearpage
+	
+	\begin{figure}[H]
+		\centering
+		\renewcommand{\arraystretch}{0.9}
+		
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\small % Adjust the font size
+			\setlength{\tabcolsep}{4pt} % Reduce the space between columns
+			\caption*{Interpolation mit \textit{nearest}}
+			\csvreader[
+			tabular=cccc,
+			table head=\toprule\textbf{$n$} & \textbf{$\sin(1,25 \cdot n)$} & \textbf{$s[n]$} & \textbf{$\Delta$}\\\midrule,
+			late after line=\\,
+			late after last line=\\\bottomrule
+			]{./assets/nearest.csv}{1=\n,2=\sinvalue,3=\svalue,4=\deltavalue}{\n & \num[round-mode=places, round-precision=3]{\sinvalue} & \num[round-mode=places, round-precision=3]{\svalue} & \num[round-mode=places, round-precision=3]{\deltavalue}}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\small % Adjust the font size
+			\setlength{\tabcolsep}{4pt} % Reduce the space between columns
+			\caption*{Interpolation mit \textit{linear}}
+			\csvreader[
+			tabular=cccc,
+			table head=\toprule\textbf{$n$} & \textbf{$\sin(1,25 \cdot n)$} & \textbf{$s[n]$} & \textbf{$\Delta$}\\\midrule,
+			late after line=\\,
+			late after last line=\\\bottomrule
+			]{./assets/linear.csv}{1=\n,2=\sinvalue,3=\svalue,4=\deltavalue}{\n & \num[round-mode=places, round-precision=3]{\sinvalue} & \num[round-mode=places, round-precision=3]{\svalue} & \num[round-mode=places, round-precision=3]{\deltavalue}}
+		\end{subfigure}
+	
+		\vspace{\baselineskip} % Add vertical space between the top and bottom subfigures
+	
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\small % Adjust the font size
+			\setlength{\tabcolsep}{4pt} % Reduce the space between columns
+			\caption*{Interpolation mit \textit{pchip}}
+			\csvreader[
+			tabular=cccc,
+			table head=\toprule\textbf{$n$} & \textbf{$\sin(1,25 \cdot n)$} & \textbf{$s[n]$} & \textbf{$\Delta$}\\\midrule,
+			late after line=\\,
+			late after last line=\\\bottomrule
+			]{./assets/pchip.csv}{1=\n,2=\sinvalue,3=\svalue,4=\deltavalue}{\n & \num[round-mode=places, round-precision=3]{\sinvalue} & \num[round-mode=places, round-precision=3]{\svalue} & \num[round-mode=places, round-precision=3]{\deltavalue}}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\small % Adjust the font size
+			\setlength{\tabcolsep}{4pt} % Reduce the space between columns
+			\caption*{Interpolation mit \textit{spline}}
+			\csvreader[
+			tabular=cccc,
+			table head=\toprule\textbf{$n$} & \textbf{$\sin(1,25 \cdot n)$} & \textbf{$s[n]$} & \textbf{$\Delta$}\\\midrule,
+			late after line=\\,
+			late after last line=\\\bottomrule
+			]{./assets/spline.csv}{1=\n,2=\sinvalue,3=\svalue,4=\deltavalue}{\n & \num[round-mode=places, round-precision=3]{\sinvalue} & \num[round-mode=places, round-precision=3]{\svalue} & \num[round-mode=places, round-precision=3]{\deltavalue}}
+		\end{subfigure}
+		
+	\end{figure}
+	\clearpage
+	
+	\textbf{Vergleich:} \\
+	\addimg{./assets/Lab2_53c.png}
+	
+	Einen Vergleich zwischen den verschiedenen Optionen des Matlab-Befehls \inlcode{interp1}{} zu ziehen, macht m.M.n. kaum einen Sinn, da jede dieser Optionen spezifische Anforderungen erfüllt und je nach Charakteristik der Daten Vor- und Nachteile hat. Während bspw. pchip oft eine gute Wahl für eine glatte\footnote{Heißt es besteht eine stetige und differenzierbare Verbindung zwischen den interpolierten Punkten. Bspw. die pchip-Methode (Piecewise Cubic Hermite Interpolating Polynomial) ist eine spezielle Methode, die auf kubischen Hermite-Polynomen basiert. Diese Methode gewährleistet, dass die interpolierte Funktion nicht nur stetig, sondern auch glatt ist, was bedeutet, dass sie bis zur zweiten Ableitung stetig ist.} Interpolation ist, ist linear schnell und einfach. Wie wir aber in unserer Darstellung deutlich erkennen können, erweist sich spline hier als die beste Option.\\
+	Bei dem Matlab-Befehl \inlcode{resample}{p, q} lässt sich aus unserer grafischen Darstellung ausschließlich der letzte Fall, bei $p=q$, vergleichen und selbst dort kann diese kaum in Genauigkeit mit den Optionen des \inlcode{interp1}{} mithalten. Somit lässt sich sagen, dass es kein geeignetes Verfahren zur Interpolation darstellt. So kann es bei der Verringerung der Sample-Rate vor allem zum Effekt des \textit{aliasing} kommen. \textit{Aliasing} tritt immer dann auf, wenn ein Signal über der \textsc{Nyquist}-Frequenz abgetastet wird und dann auf eine niedrige Frequenz \textit{gesampled} wird und bilden damit falsche Frequenzen, die das Signal verfälschen.
 \end{enumerate}
+\clearpage
+
+\textbf{Matlab Code:}
+\lstinputlisting[language=Matlab]{./assets/Lab2_53.m}

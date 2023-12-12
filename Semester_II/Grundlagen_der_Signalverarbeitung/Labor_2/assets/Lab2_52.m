@@ -16,8 +16,12 @@ x_a = imp(n, x{1});
 x_b = imp(n, x{2});
 
 % Impulsfolgen y[n]
-y_a = (imp(n, x{1}) * alpha(1) + imp(n-1, x{1})) * beta(1) + imp(n-2, x{1}) * (-1);
-y_b = (imp(n, x{2}) * alpha(2) + imp(n-1, x{2})) * beta(2) + imp(n-2, x{2}) * (-1);
+y_a1 = imp(n, x{1}) * alpha(1);
+y_a2 = imp(n-1, x{1});
+y_a3 = (y_a1 + y_a2) * beta(1);
+y_a4 = imp(n-2, x{1}) * (-1);
+y_a = (imp(n, x{1}) * alpha(1) + imp(n-1, x{1}) * (-1)) * beta(1) + imp(n-2, x{1}) * (-1);
+y_b = (imp(n, x{2}) * alpha(2) + imp(n-1, x{2}) * (-1)) * beta(2) + imp(n-2, x{2}) * (-1);
 
 % Darstellung von x[n] und y[n]
 for i=1:2
@@ -67,11 +71,6 @@ function imp = imp(n, x)
     end
     imp_unshifted = sum(imp_unshifted);
 
-    if (abs(n_min) > 0) 
-        for i=1:abs(n_min)
-            imp_unshifted = imp_unshifted * (-1);
-        end
-    end 
     imp = zeros(size(imp_unshifted));
     imp(abs(n_min)+1:end) = imp_unshifted(1:end-abs(n_min));
 end

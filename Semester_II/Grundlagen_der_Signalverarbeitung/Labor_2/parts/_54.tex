@@ -1,13 +1,37 @@
-In der Textdatei \textbf{RLC_Impulse_1} sind Zeit- und Amplitudenwerte gespeichert, für diese soll:
+In der Textdatei \textbf{RLC\_Impulse\_1} sind Zeit- und Amplitudenwerte gespeichert, für diese soll:
 \begin{enumerate}[label=\alph*)]
 	\lstset{language=matlab}
 	\item
 	\begin{enumerate}[label=\arabic*.]
-		\item eine Matlab-Routine geschrieben werden, welche die Daten der Datei einliest. \\
+		\item eine Matlab-Routine geschrieben werden, welche die Daten der Datei einliest. \vspace{-12pt}\\
+		\begin{lstlisting}[style=matlab]
+		fd = fopen('./quant2c/RLC_Impulse_1.txt', 'r');
+		data = fscanf(fd, '%f', [2 Inf])';
+		fclose(fd);
+		\end{lstlisting}
+		\vspace{\baselineskip}
 		
-		\item die Dimension der Datei bestimmt \\
+		\item die Dimension der Datei bestimmt \vspace{-12pt}\\
+		\begin{lstlisting}[style=matlab]
+		dimension = size(data);
+		\end{lstlisting}
+		\vspace{-4pt}
+		Als Ergebnis bekommen wir $2x223$ zurück, was auch unsere Datei wiederspiegelt. Denn wir haben zwei Vektoren (Amplitude und Zeit) die jeweils 223 Dateneinträge besitzen. \\
+	
+		\item der Zeit- und Amplitudenvektor separat ausgelesen und anschließend als gewichtete Impulsfolge grafisch dargestellt werden. \vspace{4pt}\\
+		\addimg{./assets/Lab2_54a.png}
+	\end{enumerate}
+	\clearpage
 		
-		\item der Zeit- und Amplitudenvektor separat ausgelesen und anschließend der Impuls als gewichtete Impulsfolge grafisch dargestellt werden. \\
-		
-		\inlcode{fscanf}{}
-		\lstinputlisting{./assets/Lab2_54a1.m}
+	\item die erste Ableitung des Zeitvektors gebildet und anschließend bewertet werden. \vspace{4pt}\\
+	\addimg{./assets/Lab2_54b.png}
+	Der Plot des Zeitvektors zeigt, dass die Abtastung der Amplitude tendenziell linear verlief. Eine ideale Abtastrate wäre zeitlich betrachtet unendlich klein und erzeugt einen linearen Verlauf. Mit Bildung der Ableitung des Zeitvektors werden die Unterschiede in den Zeitabständen deutlich. Man erkennt auch hier, unabhängig von der Verwendung einer Referenzgeraden, dass die Abtastzeiten nicht gleichmäßig sind.
+	\clearpage
+	
+	\item der Amplitudenvektor durch Interpolation in eine äquidistante Impulsfolge umgewandelt werden. \vspace{4pt}\\
+	Eine äquidistante Impulsfolge beschreibt, wie es der Name bereits sagt, dass alle abgetasteten Werte über den Zeitvektor gleich verteilt werden. Durch diese Neuverteilung werden neue Abtastzeiten definiert, zu deren die Amplitudenwerte interpoliert werden. Zur Bestimmung der Amplituden wurde eine lineare Interpolation gewählt. \\	
+	\addimg{./assets/Lab2_54c.png}
+\end{enumerate}
+	
+\textbf{Matlab Code:}
+\lstinputlisting[language=Matlab]{./assets/Lab2_54.m}

@@ -79,7 +79,7 @@ end
 % Resample
 p_resample = [3 2 2 5];
 q_resample = [2 1 3 5];
-s_q = ['>', '>>', '<', '='];
+s_q = [">", ">>", "<", "="];
 for i=1:numel(p_resample)
     s_resample = resample(s, p_resample(i), q_resample(i));
     t_resample = (0:(length(s_resample)-1))*p_resample(i)/q_resample(i);

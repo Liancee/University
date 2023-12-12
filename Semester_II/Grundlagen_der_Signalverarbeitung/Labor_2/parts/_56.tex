@@ -1,0 +1,40 @@
+Gegeben ist die Matlab Routine \textbf{quant2c.m} mit der \glqq{analoge}\grqq\ Signale quantisiert werden können.
+
+\begin{enumerate}[label=\alph*)]
+	\item Beschreibung der Matlab Routine \\
+	Der Matlab-Befehl \inlcode{quant2c}{x, w, TMode} quantisiert\footnote{Die Quantisierung ist der Prozess, bei dem kontinuierliche analoge Signale in diskrete digitale Werte umgewandelt werden. Dieser Vorgang erfolgt, indem die kontinuierlichen Werte in diskrete Stufen oder Intervalle unterteilt werden. Die resultierenden digitalen Werte repräsentieren eine Näherung des ursprünglichen analogen Signals und werden oft durch die begrenzte Anzahl von verfügbaren Bits in der digitalen Darstellung limitiert. Sie ist ein entscheidender Schritt, um analoge Signale in einer Form zu repräsentieren, die von digitalen Systemen verarbeitet werden kann.} ein Eingangssignal \textit{x} unter Betrachtung der gegebenen Bitbreite \textit{w} mit einem Modus \textit{Tmode} für das Rundungsverfahren, wobei \glq{t}\grq\ für Trunkation, dem Abschneiden von Werten, und \glq{r}\grq\ für Rundung steht. Zuerst wird das LSB berechnet, um den kleinsten darstellbaren Unterschied zwischen zwei aufeinanderfolgenden Quantisierungsstufen zu definieren. Anschließend wird das Eingangssignal x auf den Bereich [-1, 1-LSB] geschnitten. Dies stellt sicher, dass das Signal vor der Quantisierung im gültigen Bereich liegt. Dann wird abhängig vom ausgewählten Modus (TMode) das Signal quantisiert. Wenn TMode den Wert \glq{t}\grq\ hat, erfolgt Trunkation (Abschneiden), andernfalls Rundung. Die Quantisierung wird durchgeführt, indem xq durch das LSB geteilt, auf die nächstliegende ganze Zahl gerundet oder abgeschnitten und dann mit dem LSB multipliziert wird. \\
+	
+	\item Sinussignal
+	Darstellen eines Sinussignals mit $s(t_n)=\sin(\pi\cdot{n})$ mit $n=-1 : 0.001 : 1$. \\
+	\addimg{./assets/Lab2_56a.png}
+	\clearpage
+	
+	\item Quantisierung des Sinussignals \\
+	Bestimmung des Quantisierungsfehlers\footnote{Der Quantisierungsfehler ist die Differenz zwischen dem ursprünglichen analogen Signal und dem quantisierten digitalen Signal. Es entsteht durch die diskrete Repräsentation, wenn kontinuierliche analoge Werte auf eine begrenzte Anzahl von diskreten Stufen abgebildet werden. Es kann auch zu Genauigkeitsverlusten führen. } durch die in a) vorgestellte Funktion \inlcode{quant2c}{x, w, TMode} und des in b) erstellten Sinussignals. In der Quantisierung variiert $w$, als auch beide Modi. Es gilt für $w \in {2,3,3,4,5,6,7,8}$.\\
+	\addimg{./assets/Lab2_56b_w2.png}\vspace{-4pt}
+	\addimg{./assets/Lab2_56b_w3.png}\vspace{4pt}
+	\addimg{./assets/Lab2_56b_w4.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56b_w5.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56b_w6.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56b_w7.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56b_w8.png}
+	
+	Erwartbar, ergibt sich mit steigender Bitbreite ein besseres Ergebnis der Quantisierungen. Je nach Anforderung an das quantisierte Signal erscheint die Quantisierung mit einer Bitbreite von $w=6$ mehr als ausreichend. Evident wird diese Aussage durch die Betrachtung der Quantisierungsfehler. Es ist deutlich erkennbar, dass die Fehlergröße zwischen den Bitbreiten 5 und 6 rapide niedriger wird und auch die Wahl der Modi keinen weiteren Einfluss auf die Qualität nimmt. Evaluiert man nur den Modus, basierend auf einer geringeren Bitbreite ($w=2$), weist die Rundung bessere Ergebnisse auf.
+	
+	\item Quantisierung eines Audiosignals \\
+	Ähnlich zur Teilaufgabe b) wird nun das gegebene Tonsignal \textbf{ring.wav} quantisiert und anschließend bewertet. Es gilt weiterhin für die Bitbreite $w \in {2,3,3,4,5,6,7,8}$. \\
+	\addimg{./assets/Lab2_56c_w2.png}\vspace{4pt}
+	\addimg{./assets/Lab2_56c_w3.png}\vspace{4pt}
+	\addimg{./assets/Lab2_56c_w4.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56c_w5.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56c_w6.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56c_w7.png}\\\vspace{4pt}
+	\addimg{./assets/Lab2_56c_w8.png}\vspace{-4pt}
+	
+	Mit steigender Bitbreite nähert sich der Quantisierungsfehler auch hier gegen 0. Hervorzuheben ist, dass mit einer Bitbreite von 8, der Quantisierungsfehler vollständig eliminiert wurde. Im Umkehrschluss bedeutet dies eine verlustfreie Quantisierung. Es ist allerdings davon auszugehen, dass das gegebene Audiosignal digital erzeugt wurde und damit exakt quantifizierbar ist. Für reale Signale ist dieser Umstand theoretisch möglich, allerdings durch Rauschen praktisch nicht erreichbar.	
+\end{enumerate}
+
+\vspace{-4pt}
+
+\textbf{Matlab Code:}
+\lstinputlisting[language=Matlab]{./assets/Lab2_56.m}
