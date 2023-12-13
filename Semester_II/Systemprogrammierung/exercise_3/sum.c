@@ -25,7 +25,7 @@ int main(int args, char *argv[])
 
   DATATYPE sum = num1 + num2 + num3;
 
-  printf("Sum: %ld\n\nMind that integer overflows are not recognized and\nthe value range may vary dependent on your architecture.", (long)sum);
+  printf("Sum: %ld\n\nMind that integer overflows are not recognized and\nthe value range may vary dependent on your architecture.\n", (long)sum);
 
   return EXIT_SUCCESS;
 }
