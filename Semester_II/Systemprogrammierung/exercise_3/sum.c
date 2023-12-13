@@ -2,11 +2,11 @@
 #include <stdlib.h>
 
 #ifdef Birne_X
-  #define INTEGER_TYPE long
+  #define DATATYPE long
 #elif Locked_BSE
-  #define INTEGER_TYPE int
+  #define DATATYPE int
 #elif Doors_10
-  #define INTEGER_TYPE short
+  #define DATATYPE short
 #elif Banana_Mac
   #error "Unsupported operating system: Banana Mac"
 #else
@@ -19,15 +19,13 @@ int main(int args, char *argv[])
 {
   if (args != 4) usage(argv[0]);
 
-  // in theory here would be checked if the parameter is valid for its supposed OS, but since it is no requirement for this exercise it is not done.
+  DATATYPE num1 = atoi(argv[1]);
+  DATATYPE num2 = atoi(argv[2]);
+  DATATYPE num3 = atoi(argv[3]);
 
-  INTEGER_TYPE num1 = atoi(argv[1]);
-  INTEGER_TYPE num2 = atoi(argv[2]);
-  INTEGER_TYPE num3 = atoi(argv[3]);
+  DATATYPE sum = num1 + num2 + num3;
 
-  INTEGER_TYPE sum = num1 + num2 + num3;
-
-  printf("Sum: %ld\n", (long)sum);
+  printf("Sum: %ld\n\nMind that integer overflows are not recognized and\nthe value range may vary dependent on your architecture.", (long)sum);
 
   return EXIT_SUCCESS;
 }
