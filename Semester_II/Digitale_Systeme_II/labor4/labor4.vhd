@@ -1,0 +1,32 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+ENTITY labor4 IS
+	PORT (
+		x0, x1, x2 : IN STD_LOGIC;
+		y : OUT STD_LOGIC
+	);
+END ENTITY;
+
+ARCHITECTURE Structural OF labor4 IS
+	COMPONENT shpXNOR PORT (
+		A, B : IN STD_LOGIC;
+		Y : OUT STD_LOGIC
+	);
+	END COMPONENT;
+	
+	SIGNAL c : STD_LOGIC := '0';
+	
+BEGIN
+	shpXNOR1: shpXNOR PORT MAP (
+		A => x0,
+		B => x1,
+		Y => c
+	);
+	
+	shpXNOR2: shpXNOR PORT MAP (
+		A => c,
+		B => x2,
+		Y => y
+	);
+END ARCHITECTURE;
