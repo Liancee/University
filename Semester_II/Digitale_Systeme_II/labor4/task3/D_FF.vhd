@@ -12,7 +12,7 @@ end entity;
 
 architecture Behavioral of D_FF is
 
-	signal internal_Q : STD_LOGIC := '0';
+	signal internal_Q : STD_LOGIC := '0'; -- remove all internal_Q occurrences and put Q there for removing a delta cycle
 	
 begin
 

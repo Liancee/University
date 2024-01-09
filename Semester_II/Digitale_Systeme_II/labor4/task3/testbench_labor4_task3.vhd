@@ -18,10 +18,7 @@ begin
 			X => X,
 			Clk => Clk,
 			Reset => Reset,
-			Y => Y_Actual--,
-			--output_a => a,
-			--output_b => b,
-			--output_c => c
+			Y => Y_Actual
 		);
 	
 	Clk <= not Clk after 10 NS;

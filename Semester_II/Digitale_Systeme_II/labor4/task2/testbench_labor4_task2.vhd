@@ -6,28 +6,36 @@ end entity;
 
 architecture Testbench of testbench_labor4_task2 is
 
-	signal X : std_logic_vector(2 downto 0) := "000";
-	signal P : std_logic := '0';
-	signal c: std_logic;
+	--signal X : std_logic_vector(2 downto 0) := "000";
+	--signal P : std_logic := '0';
+	--signal c: std_logic;
+	signal X : std_logic_vector(1 downto 0) := "00";
+	signal Y : std_logic := '0';
 
     --SIGNAL Q_Desired : STD_LOGIC_VECTOR(3 DOWNTO 0);
     --SIGNAL Y : STD_LOGIC;
 
 begin
 
-	DUT0: entity work.labor4_task2
+--	DUT0: entity work.labor4_task2
+--		port map(
+--			X => X,
+--			Y => P,
+--			output_c => c
+--		);
+
+	DUT0: entity work.xor_with_hold_propagation
 		port map(
 			X => X,
-			Y => P,
-			output_c => c
+			Y => Y
 		);
 
 	process
 	begin
 
-		X(0) <= '1' after 20 NS, '0' after 50 NS, '1' after 53 NS,  '0' after 82 NS, '1' after 83 NS;
+		X(0) <= '1' after 20 NS, '0' after 50 NS,  '0' after 82 NS, '1' after 85 NS;
 		X(1) <= '1' after 40 NS, '0' after 80 NS, '1' after 81 NS, '0' after 90 NS;
-		X(2) <= '1' after 60 NS, '0' after 61 NS, '1' after 65 NS;
+		--X(2) <= '1' after 60 NS, '0' after 61 NS, '1' after 65 NS;
 
 --        Q_Desired <= "0000",
 --        "1000" AFTER 5 NS,
