@@ -73,18 +73,7 @@ void append(const char * src_file, const char * dst_file)
     ssize_t c = read(rfd, buf, BUF_SIZE);
     if (c < 0) error(src_file);
     if (c == 0) break;
-    if (write(afd, buf, c) < 0) error(dst_file); 
-    /* laut dem Handbuch kann es selbst beim erfolgreichen Aufruf von write()
-     * aufgrund von verschiedensten Gruenden dazu kommen, dass nicht die 
-     * eigentlich geschriebene Anzahl von Bytes zurueckgegeben wird, sondern
-     * eine kleinere Zahl. Falls aufgrund von zu wenig Speicherplatz oder 
-     * anderen Gruenden nicht c mal geschrieben kann, wird -1 zurueckgegeben
-     * was wir mit der if Abfrage abfangen. Dazu dass write() 0 zurueckgibt,
-     * kann es nicht kommen, da wenn 0 bytes geschrieben werden sollen, dies
-     * bereits mit dem break in der vorherigen if Abfrage abgefragt wurde.
-     * Falls doch eine Abfrage von write() auf geschriebene bytes nötig ist,
-     * kann einfach die letzte if Abfrage veraendert werden, beispielweise:
-     * ssize_t w = write(afd, buf, c); if (w < 0 || w == 0 ...)... */
+    if (write(afd, buf, c) < 0) error(dst_file);
   }
   free(buf);
   buf = NULL;
