@@ -5,12 +5,14 @@
 #include <QMessageBox>
 #include <array>
 
+#include <iostream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setFixedSize(475, 392);
+    //this->setFixedSize(475, 392);
     this->setStyleSheet("background-color: #772790;");
 
     /*QPalette pal = this->palette();
@@ -52,8 +54,9 @@ MainWindow::~MainWindow()
 void MainWindow::Initialize()
 {
     // load our data
-    //w.net = bht::Network("Drive:/path/to/GTFSShort");
-    net = bht::Network("Drive:/path/to/GTFS");
+    //w.net = bht::Network("E:/Education/bht/University/Semester_III/Oop/tasks/GTFSShort");
+    //net = bht::Network("E:/Education/bht/University/Semester_III/Oop/tasks/GTFS");
+    net = bht::Network("E:/Education/bht/University/Semester_III/Oop/tasks/GTFSMain");
 
     // initialize content for window controls
     //searchStops(); // first load of stops for the ListWidget
@@ -69,6 +72,37 @@ void MainWindow::Initialize()
 
     ui->searchStopsPushButton->setEnabled(false);
     ui->searchStopsPushButton->setStyleSheet("color: black; background-color: #58B687;");
+
+
+    // lambda function to find the stop name
+    auto findStopName = [&](const std::string& stopId) -> std::string
+    {
+        for (const auto& item : net.stops)
+            if (item.second.id == stopId)
+                return { item.second.name };
+        return { "" };
+    };
+
+    net.createAdjacencylist();
+    //std::vector<bht::StopTime> test = net.getTravelPlan("de:12067:900310004:3:53", "de:11000:900183001:1:51");
+    //std::vector<bht::StopTime> test = net.getTravelPlan("de:11000:900052201:1:51", "de:11000:900092201:1:50"); // works is on the same trip
+    //std::vector<bht::StopTime> test = net.getTravelPlan("de:11000:900052201:1:51", "de:11000:900053301:2:52");
+    //std::vector<bht::StopTime> test = net.getTravelPlan("de:12067:900310004:3:53", "de:11000:900013102::3");
+    //std::vector<bht::StopTime> test = net.getTravelPlan("de:11000:900120003:2:53", "de:11000:900193002:1:51");
+    std::vector<bht::StopTime> test = net.getTravelPlan("de:12067:900310004:3:53", "de:11000:900013102::3");
+
+    if (!test.empty())
+        for (const auto& entry : test)
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(findStopName(entry.stopId) + " " + entry.stopId));
+    else
+        ui->plainTextEdit->setPlainText(QString::fromStdString("No path could be found!"));
+
+
+    bht::NetworkScheduledTrip trip = net.getScheduledTrip("230419244");
+
+    for (const bht::StopTime& stop : trip) {
+        std::cout << "Stop " << stop.stopSequence << ": " << net.stops[stop.stopId].name << std::endl;
+    }
 }
 
 void MainWindow::prepareTableWidget()
@@ -91,6 +125,9 @@ void MainWindow::prepareTableWidget()
     // selection mode and behavior
     ui->searchStopsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->searchStopsTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    // streches columns equally to fit size of grid
+    //ui->searchStopsTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 void MainWindow::onSearchStopsPushButtonClicked()
@@ -248,7 +285,8 @@ void MainWindow::onSelectTripComboBoxIndexChanged()
     int index = ui->selectTripComboBox->currentIndex();
 
     // following statement cant really be true
-    if (index >= net.trips.size())
+    //if (index >= net.trips.size())
+    if (index >= net.tripsOfSelectedRoute.size())
     {
         // index is out of bounds
         QMessageBox msgBox;
@@ -262,12 +300,13 @@ void MainWindow::onSelectTripComboBoxIndexChanged()
 
         return;
     }
-    net.selectedTrip = net.trips.at(index);
+    net.selectedTrip = net.tripsOfSelectedRoute.at(index);
+    //net.selectedTrip = net.trips.at(index);
 
     net.stopTimesOfSelectedTrip.clear();
-    std::string routeId = net.selectedTrip.id;
+    std::string tripId = net.selectedTrip.id;
     for (const auto& item : net.stopTimes)
-        if (!item.tripId.compare(routeId))
+        if (!item.tripId.compare(tripId))
             net.stopTimesOfSelectedTrip.push_back(item);
 
     if (!ui->searchStopsLineEdit->isEnabled()) ui->searchStopsLineEdit->setEnabled(true);

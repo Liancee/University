@@ -2,6 +2,9 @@
 #include "CSVReader.h"
 #include "types.h"
 #include <filesystem>
+#include <set>
+
+#include <queue>
 
 #include <QtDebug>
 
@@ -294,8 +297,174 @@ namespace bht
         return result;
     }
 
-    /*std::vector<bht::StopTime> getTravelPlan(const std::string& fromStopId, const std::string& toStopId)
+    bool Network::neighborAlreadyExistsInAdjList(std::string nodeStopId, std::string neighborStopId)
     {
+        auto iterator = std::find_if(adjacencyList[nodeStopId].begin(), adjacencyList[nodeStopId].end(), [&neighborStopId](const std::string& p)
+        {
+            return p == neighborStopId;
+        });
 
-    }*/
+        if (iterator == adjacencyList[nodeStopId].end()) // if the iterator is at the end we searched through the entire vector without finding our node(stop)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    void Network::createAdjacencylist()
+    {
+        for (const auto& stopTime : stopTimes)
+        {
+            tripsWithSortedStopsByStop_sequence[stopTime.tripId].emplace_back(stopTime.stopSequence, stopTime.stopId);
+        }
+        for (auto& entry : tripsWithSortedStopsByStop_sequence) // sort by stop_sequence
+        {
+            std::vector<std::pair<unsigned int, std::string>>& stops = entry.second;
+            std::sort(stops.begin(), stops.end(), [](const std::pair<unsigned int, std::string>& a, const std::pair<unsigned int, std::string>& b)
+            {
+                return a.first < b.first;
+            });
+        }
+
+        for (auto& trip : tripsWithSortedStopsByStop_sequence)
+        {
+            unsigned short c = 0;
+            auto length = trip.second.size() - 1; // -1 accounting for c starting at 0
+            for (auto& stop : trip.second)
+            {
+                if (c < length) // first stop on the trip
+                {
+                    if (!neighborAlreadyExistsInAdjList(stop.second, trip.second[c + 1].second))// check if we already inserted this stop as neighbor
+                        adjacencyList[stop.second].emplace_back(trip.second[c + 1].second); // add next stop on trip as neighbor
+                }
+                c++;
+            }
+        }
+        // HOW COULD I FCKN FORGET TO ADD CROSSOVERS AS CONNECTION.. IM LITERALLY RETARDED THAT COST HOURS IF NOT DAYS ▄︻̷̿┻̿═━一 (ಠ‿ಠ)
+        for (const std::pair<std::string, std::vector<std::string>>& node : adjacencyList)
+        {
+            for (const std::pair<std::string, Stop>& stop : stops)
+            {
+                const Stop& currentStop = stops[node.first];
+                if (currentStop.zoneId == stop.second.zoneId && currentStop.id != stop.second.id)
+                {
+                    if (!neighborAlreadyExistsInAdjList(currentStop.id, stop.second.id))
+                        adjacencyList[currentStop.id].emplace_back(stop.second.id);
+                }
+            }
+        }
+    }
+
+    // upgrade from Dijkstra, so
+    double heuristic(const Stop& a, const Stop& b)
+    {
+        // Simple Euclidean distance as heuristic
+        double dx = a.longitude - b.longitude;
+        double dy = a.latitide - b.latitide;
+        return std::sqrt(dx * dx + dy * dy);
+    }
+
+    std::vector<bht::StopTime> Network::getTravelPlan(const std::string& fromStopId, const std::string& toStopId)
+    {
+        // A* algorithm
+        bool pathFound = false;
+
+        //std::priority_queue<std::pair<int, std::string>> openlist;
+        std::set<std::pair<int, std::string>> openlist;
+        std::set<std::pair<int, std::string>> closedlist;
+
+        std::unordered_map<std::string, int> gScore;
+        std::unordered_map<std::string, std::string> previous;
+
+        //openlist.push({0, fromStopId});
+        openlist.insert({0, fromStopId});
+
+        while (!openlist.empty())
+        {
+            //std::pair<int, std::string> currentStop = openlist.top();
+            std::pair<int, std::string> currentStop = *openlist.begin();
+            std::string currentStopId = currentStop.second;
+            //openlist.pop();
+            openlist.erase(openlist.begin());
+
+            if (currentStopId == toStopId) // Hooray! we found the shortest path (づ｡◕‿‿◕｡)づ
+            {
+                pathFound = true;
+                break;
+            }
+
+            closedlist.emplace(currentStop);
+
+            for (const std::string& neighbor : adjacencyList[currentStopId]) // adjList[currentStopId] is vector<trip_id, stop_sequence> from stop_times
+            {
+                //if (closedlist.contains(neighbor)) then continue
+                bool c0ntinue = false;
+                for (const std::pair<int, std::string>& item :  closedlist)
+                        if (item.second == neighbor)
+                            c0ntinue = true;
+                if (c0ntinue)
+                    continue;
+
+                int tentative_gScore = gScore[currentStopId] + (stops[neighbor].zoneId == stops[currentStopId].zoneId ? 0 : 1); // weight; check for Gleiswechsel lol
+
+                //if (openlist.contains(neighbor))
+                bool isInOpList = false;
+                for (const std::pair<int, std::string>& item : openlist)
+                    if (item.second == neighbor)
+                        isInOpList = true;
+                if (isInOpList && tentative_gScore >= gScore[neighbor])
+                    continue;
+
+                // Vorgängerzeiger setzen und g Wert merken oder anpassen
+                previous[neighbor] = currentStopId; // successor.predecessor := currentNode
+                gScore[neighbor] = tentative_gScore; // g(successor) = tentative_g
+                // f-Wert des Knotens in der Open List aktualisieren
+                // bzw. Knoten mit f-Wert in die Open List einfügen
+                int fScore = gScore[neighbor] + heuristic(stops[neighbor], stops[toStopId]); // f := tentative_g + h(successor)
+
+                openlist.insert({fScore, neighbor}); // do I have to remove the old val?!
+                /*if (isInOpList) // in theory this should update the val and else should insert
+                    openlist.insert({fScore, neighbor}); // do I have to remove the old val?!
+                else
+                    openSet.insert({fScore[neighbor], neighbor});*/
+            }
+        }
+
+        if (pathFound)
+        {
+            // Reconstruct the path
+            std::vector<StopTime> travelPlan;
+            std::string currentStopId = toStopId;
+
+            while (currentStopId != fromStopId)
+            {
+                StopTime stopTime;
+                stopTime.stopId = currentStopId;
+                travelPlan.push_back(stopTime);
+                currentStopId = previous[currentStopId];
+            }
+            StopTime stopTime;
+            stopTime.stopId = fromStopId;
+            travelPlan.push_back(stopTime);
+
+            std::reverse(travelPlan.begin(), travelPlan.end());
+            return travelPlan;
+        }
+        else return {};
+    }
+
+    NetworkScheduledTrip Network::getScheduledTrip(const std::string& tripId) const
+    {
+        std::vector<StopTime> stopTimesOfTrip;
+        for (const std::pair<unsigned int, std::string>& stop : tripsWithSortedStopsByStop_sequence.at(tripId))
+        {
+            for (const StopTime& item : stopTimes)
+                if (stop.second == item.stopId)
+                {
+                    stopTimesOfTrip.push_back(item);
+                    break;
+                }
+        }
+        return NetworkScheduledTrip(stopTimesOfTrip, tripId);
+    }
 }

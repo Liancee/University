@@ -1,0 +1,79 @@
+level_id,level_index,level_name
+1,2,
+100,-4,U-Bahnsteig
+101,1,Bahnsteige DB & S-Bahn
+105,-1,Bahnsteigebene
+106,0,Straßen- und Bahnsteigebene
+111,0,Bahnsteigebene
+114,2,Bahnsteigebene
+119,2,Bahnsteige
+12,-1,"Verteiler, Bahnsteig U2, Untergeschoss Empfangshalle, Zwischengeschoss Unterführung"
+124,-2,Bahnsteig
+128,-1,Bahnsteig
+13,-3,"Bahnsteig U8, Zwischengeschoss U5 U2 und Zwischengeschoss U5 Verteiler"
+130,-3,Bahnsteigebene
+132,0,untere Bahnsteigebene
+133,1,obere Bahnsteigebene
+134,0,Straßenebene und Bahnsteigebene
+14,-5,Bahnsteige der U5
+140,2,Bahnsteigebene / Park&Ride
+143,1,Ringbahnsteigebene
+146,1,Bahnsteig + ZOB
+147,-1,Bahnsteigebene und Tramsteige
+149,3,Bahnsteigebene
+15,1,Regional und S-Bahnsteig
+152,0,Vorplatz und Bahnsteige
+156,0,Straßen- und Bahnseigebene
+158,0,Bahnsteig- und Straßenebene
+164,2,Bahnsteig Gleis 2
+18,-1,U-Bahnsteigebene
+19,-3,Große Halle
+197,-1,Bahnsteig U6 und Zwischengeschoss
+2,-1,
+22,-3,
+23,4,
+24,3,
+25,2,Bahnsteig
+27,-4,Bahnsteig U7
+28,-2,Bahnsteig U9
+3,-2,
+31,-4,
+32,-2,U-Bahnsteigebene
+33,1,Bahnsteigebene
+34,-3,Bahnsteig U7
+35,-1,Bahnsteig U8 und Zwischengeschoss/Übergang
+37,-3,U-Bahnsteigebene
+38,2,S-Bahnsteigebene
+4,0,
+41,-5,Bahnsteig U8
+42,-3,Bahnsteig U9
+46,2,Bahnsteig U1/U3
+49,-3,Bahnsteig
+5,1,
+50,1,Bahnsteig
+55,-3,Bahnsteig U5
+58,4,Bahnsteig
+6,-3,"Bahnsteig U9, Unterführung U2"
+62,2,Bahnsteig U5
+66,-2,Bahnsteigebene
+7,-1,Bahnsteig U2
+70,2,Bahnsteig U1 U3
+71,-3,Bahnsteig U8
+75,-2,Bahnsteig U8
+76,-3,Bahnsteig U6
+77,-1,U-Bahnsteig
+78,1,S-Bahnsteigebene
+79,-3,U-Bahnsteig
+8,2,DB Bahnsteige
+80,-1,S-Bahnsteig
+81,-4,Bahnsteig U8
+82,-2,S-Bahnsteig
+83,-2,U-Bahnsteig oben
+84,-3,U-Bahnsteig unten
+86,1,S-Bahnsteig
+87,-3,U-Bahnhof U9
+88,-1,S-Bahnsteige Ringbahn
+9,0,Straßenebene
+92,3,Bahnsteig S5/7/75/3
+98,-2,Bahnsteig U5
+99,2,S Bahnsteig

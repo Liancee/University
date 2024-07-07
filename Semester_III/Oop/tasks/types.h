@@ -65,7 +65,7 @@ typedef struct SCalendar {
  */
 typedef struct SLevel {
   std::string id;
-  unsigned int index;
+  int index;
   std::string name;
 } Level;
 
@@ -73,7 +73,7 @@ typedef struct SLevel {
  * Files pathways.txt and levels.txt use a graph representation to describe subway or train stations, with nodes representing locations and edges representing pathways.
  * https://gtfs.org/schedule/reference/#pathwaystxt
  */
-typedef enum EPathwayMode { PathwayMode_Walkway = 1, PathwayMode_Stairs = 2, PathwayMode_MovingSidewalk = 3, PathwayMode_Escalator = 4, PathwayMode_Elevator = 5, PathwayMode_FareGate = 6 } PathwayMode;
+typedef enum EPathwayMode { PathwayMode_Unset = 0, PathwayMode_Walkway = 1, PathwayMode_Stairs = 2, PathwayMode_MovingSidewalk = 3, PathwayMode_Escalator = 4, PathwayMode_Elevator = 5, PathwayMode_FareGate = 6 } PathwayMode;
 typedef struct SPathway {
   std::string id;
   std::string fromStopId;
@@ -82,7 +82,7 @@ typedef struct SPathway {
   bool isBidirectional;
   float length;
   unsigned int traversalTime;
-  unsigned int stairCount;
+  int stairCount;
   float maxSlope;
   float minWidth;
   std::string signpostedAs;
@@ -92,7 +92,51 @@ typedef struct SPathway {
  * Description of routes in the network
  * https://gtfs.org/schedule/reference/#routestxt
  */
-typedef enum ERouteType { RouteType_Tram = 0, RouteType_Subway = 1, RouteType_Rail = 2, RouteType_Bus = 3, RouteType_Ferry = 4, RouteType_CableTram = 5, RouteType_AerialLift = 6, RouteType_Funicular = 7, RouteType_Trolleybus = 11, RouteType_Monorail = 12 } RouteType;
+typedef enum ERouteType { 
+  RouteType_Tram = 0, 
+  RouteType_Subway = 1, 
+  RouteType_Rail = 2, 
+  RouteType_Bus = 3, 
+  RouteType_Ferry = 4, 
+  RouteType_CableTram = 5, 
+  RouteType_AerialLift = 6, 
+  RouteType_Funicular = 7, 
+  RouteType_Trolleybus = 11, 
+  RouteType_Monorail = 12, 
+  RouteType_RailwayService = 100, 
+  RouteType_HighSpeedRailService = 101, 
+  RouteType_LongDistanceTrains = 102, 
+  RouteType_InterRegionalRailService = 103, 
+  RouteType_SleeperRailService = 105, 
+  RouteType_RegionalRailService = 106, 
+  RouteType_TouristRailwayService = 107, 
+  RouteType_RailShuttle = 108, 
+  RouteType_SuburbanRailway = 109, 
+  RouteType_CoachService = 200, 
+  RouteType_InternationalCoachService = 201, 
+  RouteType_NationalCoachService = 202, 
+  RouteType_RegionalCoachService = 204, 
+  RouteType_UrbanRailwayService = 400, 
+  RouteType_MetroService = 401, 
+  RouteType_UndergroundService = 402, 
+  RouteType_MonorailExtended = 405, 
+  RouteType_BusService = 700, 
+  RouteType_RegionalBusService = 701, 
+  RouteType_ExpressBusService = 702, 
+  RouteType_LocalBusService = 704, 
+  RouteType_DemandAndResponseBusService = 715, 
+  RouteType_TrolleybusService = 800, 
+  RouteType_TramService = 900, 
+  RouteType_WaterTransportService = 1000,
+  RouteType_FerryService = 1200,
+  RouteType_AerialLiftService = 1300,
+  RouteType_TelecabinService = 1301,
+  RouteType_FunicularService = 1400,
+  RouteType_CommunalTaxiService = 1501,
+  RouteType_MiscellaneousService = 1700,
+  RouteType_HorsedrawnCarriage = 1702
+} RouteType;
+
 typedef struct SRoute {
   std::string id;
   std::string agencyId;
@@ -110,7 +154,7 @@ typedef struct SRoute {
  */
 typedef struct SShape {
   std::string id;
-  double latitide;
+  double latitude;
   double longitude;
   unsigned int sequence;
 } Shape;
@@ -175,6 +219,7 @@ typedef struct STransfer {
  * https://gtfs.org/schedule/reference/#tripstxt
  */
 typedef enum ETripDirection { TripDirection_Inbound = 0, TripDirection_Outbound = 1 } TripDirection;
+typedef enum EBikesAllowed { BikesAllowed_NoInformation = 0, BikesAllowed_Yes = 1, BikesAllowed_No = 2 } BikesAllowed;
 typedef struct STrip {
   std::string id;
   std::string routeId;
@@ -185,7 +230,7 @@ typedef struct STrip {
   std::string blockId;
   std::string shapeId;
   WheelchairAccessibility wheelchairAccessible;
-  bool bikesAllowed;
+  BikesAllowed bikesAllowed;
 } Trip;
 
 }

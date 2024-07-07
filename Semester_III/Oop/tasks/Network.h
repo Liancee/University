@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include "types.h"
+#include "scheduled_trip.h"
 
 namespace bht
 {
@@ -14,6 +15,7 @@ namespace bht
             std::string dirpath;
 
             void readCSVFiles();
+            bool neighborAlreadyExistsInAdjList(std::string nodeStopId, std::string neighborStopId);
 
         public:
             Network(){;} // necessary for QT it seems
@@ -45,9 +47,15 @@ namespace bht
             Trip selectedTrip;
             std::vector<StopTime> stopTimesOfSelectedTrip;
 
+            std::unordered_map<std::string, std::vector<std::string>> adjacencyList;
+            std::unordered_map<std::string, std::vector<std::pair<unsigned int, std::string>>> tripsWithSortedStopsByStop_sequence; //unordered_map<tripId, <vector<pair<stop_sequence, stopId>>>>
+
             std::vector<Stop> search(std::string searchString, bool accessible = false);
-            //std::vector<bht::StopTime> getTravelPlan(const std::string& fromStopId, const std::string& toStopId);
-  };
+
+            void createAdjacencylist();
+            std::vector<bht::StopTime> getTravelPlan(const std::string& fromStopId, const std::string& toStopId);
+            NetworkScheduledTrip getScheduledTrip(const std::string& tripId) const;
+    };
 }
 
 #endif //UEBUNG_1_NETWORK_H
